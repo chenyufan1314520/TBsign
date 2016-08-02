@@ -23,31 +23,31 @@
     <a href="<?php echo $siteinfo['url']; ?>"><b><?php echo $siteinfo['name']; ?></a>
   </div>
   <div class="login-box-body">
-    <p class="login-box-msg">Sign in to start your session</p>
+    <p class="login-box-msg">登录</p>
     
     <div>
       <div class="form-group has-feedback">
-        <input type="email" class="form-control" placeholder="User Name or Email" name="user" id="user">
+        <input type="email" class="form-control" placeholder="用户名 or 邮箱" name="user" id="user">
         <span class="glyphicon glyphicon-user form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
-        <input type="password" class="form-control" placeholder="Password" name="password" id="password">
+        <input type="password" class="form-control" placeholder="密码" name="password" id="password">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <div class="row">
         <div class="col-xs-8">
           <div class="checkbox icheck">
             <label>
-              <input type="checkbox"> Remember Me
+              <input type="checkbox"> 记住我
             </label>
           </div>
         </div>
         <div class="col-xs-4">
-          <button type="submit" id="login" class="btn btn-primary btn-block btn-flat">Sign In</button>
+          <button type="submit" id="login" class="btn btn-primary btn-block btn-flat">登录</button>
         </div>
       </div>
     </div>
-
+    <br>
     <a href="./index.php?mod=reg" class="text-center">还没有账号？那就注册一个呗^_^</a>
 
   </div>
@@ -70,30 +70,34 @@ $(function () {
     
 });
 $("body").keydown(function() {
-    if (event.keyCode == "13") {//keyCode=13是回车键
+    if (event.keyCode == "13") {
         $("#login").click();
     }
 });    
-// Ajax 登录
-$("#login").click(function(){  //获取文本框内容
-    var user = $("#user").val();  //获取邮箱
-    var password = $("#password").val(); //获取密码
+$("#login").click(function(){ 
+    var user = $("#user").val(); 
+    var password = $("#password").val();
+    var rename = /^[a-zA-z]\w{3,15}$/ ;
+    var remail = /^(\w-*\.*)+@(\w-?)+(\.\w{2,110})+$/ ;
     
-    // Ajax 提交开始
-    $.ajax({ 
-        type: "post", 
-        url : "./ajax.php?mod=login", 
-        dataType: "json",
-        data: "user="+user+"&password="+password, 
-        success: function(result){
-            if (result.code == 0) {
-                $.cookie('uss', result.uss);
-                window.location.href="./index.php";
-            } else if (result.code == -1) {
-                notie('error', result.msg, true)
-            }
-        } 
-    });
+    if (rename.test(user) || remail.test(user)) {
+        $.ajax({ 
+            type: "post", 
+            url : "./ajax.php?mod=login", 
+            dataType: "json",
+            data: "user="+user+"&password="+password, 
+            success: function(result){
+                if (result.code == 0) {
+                    $.cookie('uss', result.uss);
+                    window.location.href="./index.php";
+                } else if (result.code == -1) {
+                    notie('error', result.msg, true)
+                }
+            } 
+        });
+    } else {
+        notie('error', '请使用字母、数字、下划线', true)
+    }
 });
 
 </script>

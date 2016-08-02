@@ -48,7 +48,7 @@
 			                                    
 	                                                            <div class="col-sm-6">
 	                                                                <div class="description-block">
-	                                                                    <h5 class="description-header"><?php echo sign_getinfo ($baiduidlist_d['bid'], 0, 0, true) ?></h5>
+	                                                                    <h5 class="description-header"><?php echo sign_getinfo ($userinfo['uid'], $baiduidlist_d['bid'], 0, 0, true) ?></h5>
 	                                                                    <span class="description-text">贴吧数量</span>
 	                                                                </div>
 	                                                            </div>

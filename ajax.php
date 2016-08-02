@@ -95,7 +95,7 @@
 			user_setemail ($userinfo['uid'], $_POST['email']); // 邮箱
 			
 	    	if ($_POST['avatar_type'] == 'Gravatar') { // 头像
-	    		$avatar_url = 'https://gravatar.iwch.me/avatar/' . md5 (strtolower ($userinfo['email'])) . '?s=200';
+	    		$avatar_url = system_getgravatar ($userinfo['email']);
 	    	} else {
 	    		$avatar_url = isset ($baiduidinfo[0]) ? $baiduidinfo[0]['avatar'] : $userinfo['avatar'];
 	    	}
@@ -170,6 +170,7 @@
 				system_seturl ($_POST['siteurl']);
 				system_setname ($_POST['sitename']);
 				system_setbeian ($_POST['sitebeian']);
+				system_setnotice ($_POST['sitenotice']);
 
 				// 返回
 				exit (json_encode (array ('code' => 0)));

@@ -18,7 +18,7 @@
         	'password' => md5 (md5 (md5 ($password))),
         	'time' => time (),
         	'gid' => '2',
-        	'avatar' => 'https://gravatar.iwch.me/avatar/?s=200'
+        	'avatar' => user_getgravatar ($email)
         );
         $ret = $GLOBALS['db']->insert ('users', $data);
         
@@ -93,12 +93,10 @@
     function user_getinfo ($uid, $limit = 0, $count = false) // 获取帐号信息
     {
         // 初始化变量
-        $uid = $uid == 0 ? '%' : $uid;
+        $where = array ();
+        $uid == 0 ? : $where['uid'] = $uid;
         
         // 查询
-        $where = array (
-        	'uid[~]' => $uid
-        );
         if ($limit != 0) {
 			$where['LIMIT'] = $limit;
 		}
@@ -123,12 +121,9 @@
     function user_getlogininfo ($uid, $limit = 0, $count = false) // 获取帐号登录信息
     {
         // 初始化变量
-        $uid = $uid == 0 ? '%' : $uid;
+        $uid == 0 ? : $where['uid'] = $uid;
         
         // 查询
-        $where = array (
-        	'uid[~]' => $uid
-        );
         if ($limit != 0) {
 			$where['LIMIT'] = $limit;
 		}
@@ -181,5 +176,10 @@
         	'uid' => $uid
         );
         $GLOBALS['db']->update ('users', $data, $where);
+    }
+
+    function user_getgravatar ($email) // 通过email获取Gravatar头像
+    {
+        return 'https://gravatar.iwch.me/avatar/' . md5 (strtolower ($email)) . '?s=200';
     }
 ?>

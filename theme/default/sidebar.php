@@ -25,7 +25,7 @@
         </li>
         <li class="treeview <?php if (@$_GET['mod'] == 'showtb') echo 'active'; ?>">
             <a href="./index.php?mod=showtb">
-                <i class="fa fa-link"></i> <span> 贴吧列表</span>
+                <i class="fa fa-calendar-check-o"></i> <span> 贴吧签到日记</span>
             </a>
         </li>
         <?php

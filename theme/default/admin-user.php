@@ -2,7 +2,6 @@
 <!-- 头部引入 -->
 <?php require_once 'header.php'; ?>
 <link rel="stylesheet" href="<?php echo $siteinfo['theme']['url']; ?>/assets/plugins/checkbox/checkbox.css">
-<style>.noties {top: 300px!important;}</style>
 <div class="content-wrapper">
   <section class="content">
     <div class="row">

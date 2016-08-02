@@ -10,7 +10,7 @@
         	'kw' => $kw,
         	'fid' => $fid,
         	'lasttime' => '0',
-        	'state' => 0
+        	'state' => 1
         );
         $ret = $GLOBALS['db']->insert ('tieba', $data);
         
@@ -39,21 +39,15 @@
 		$GLOBALS['db']->delete ('tieba', $where);
     }
 
-    function sign_getinfo ($bid, $kid, $limit = 0, $count = false, $time1 = 0, $time2 = 0, $state = 0) // 获取某贴吧信息
+    function sign_getinfo ($uid, $bid, $kid, $limit = 0, $count = false, $time1 = 0, $time2 = 0, $state = 0) // 获取某贴吧信息
     {
     	// 初始化变量
-        $bid = $bid == 0 ? '%' : $bid;
-        $kid = $kid == 0 ? '%' : $kid;
-        $state = $state == 0 ? '%' : $state;
+    	$uid == 0 ? : $where['AND']['uid'] = $uid;
+        $bid == 0 ? : $where['AND']['bid'] = $bid;
+        $kid == 0 ? : $where['AND']['kid'] = $kid;
+        $state == 0 ? : $where['AND']['state'] = $state;
 
         // 查询
-        $where = array (
-        	'AND' => array (
-        		'kid[~]' => $kid,
-        		'bid[~]' => $bid,
-        		'state[~]' => $state
-        	)
-        );
 		if ($limit != 0) {
 			$where['LIMIT'] = $limit;
 		}

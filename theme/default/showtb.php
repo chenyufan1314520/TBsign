@@ -7,6 +7,7 @@
     <div class="row">
         <div class="col-xs-12">
             <?php
+            	$ztime = strtotime (date ('Y-m-d'));
             	if (is_array ($baiduidinfo)) {
 	            	foreach ($baiduidinfo as $baiduidlist_d) {
 						?>
@@ -30,7 +31,7 @@
 				                        </thead>
 				                        <tbody>
 				                        	<?php
-				                        		$tiebalist = sign_getinfo ($baiduidlist_d['bid'], 0);
+				                        		$tiebalist = sign_getinfo ($userinfo['uid'], $baiduidlist_d['bid'], 0);
 				            					if (is_array ($tiebalist)) {
 				            						foreach ($tiebalist as $tiebalist_d) {
 				            							?>
@@ -41,9 +42,11 @@
 								                                <td>
 								                                <?php 
 								                                	if ($tiebalist_d['state'] == '1') {
-								                                		echo '成功';
-								                                	} else if ($tiebalist_d['state'] == '0') {
-								                                		echo '从未';
+								                                		if ($tiebalist_d['lasttime'] >= $ztime) {
+								                                			echo '成功';
+								                                		} else {
+								                                			echo '等待签到';
+								                                		}
 								                                	} else {
 																		echo '错误码：' . $tiebalist_d['state'];
 								                                	}

@@ -43,7 +43,11 @@
 	{
 		return option_getvalue ('system_beian');
 	}
-	
+	function system_getnotice () // 获取公告
+	{
+		return option_getvalue ('system_notice');
+	}
+
 	function system_seturl ($url) // 设置云签URL
 	{
 		return option_update ('system_url', $url);
@@ -55,5 +59,9 @@
 	function system_setbeian ($beian) // 设置云签备案号
 	{
 		return option_update ('system_beian', $beian);
+	}
+	function system_setnotice ($notice) // 设置公告
+	{
+		return option_update ('system_notice', $notice);
 	}
 ?>

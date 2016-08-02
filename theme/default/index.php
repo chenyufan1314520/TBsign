@@ -35,7 +35,7 @@
 
                                     <div class="small-box bg-yellow">
                                         <div class="inner">
-                                            <h3>44</h3>
+                                            <h3><?php echo count ($baiduidinfo) ?> / ∞</h3>
                                             <p>百度ID / 可绑定</p>
                                         </div>
                                         <div class="icon">
@@ -55,7 +55,7 @@
                             </div>
                             
                             <div class="box-body">
-                                NicoNicoNi~
+                                <?php echo system_getnotice () ?>
                             </div>
                         </div>
                     </div>
@@ -123,7 +123,9 @@
 <script src="<?php echo $siteinfo['theme']['url']; ?>/assets/plugins/jQuery/jQuery-2.2.0.min.js"></script>
 <script>
     $(function(){
-		var signed = "2", error = "2", waiting = "2";
+		var signed = "<?php echo sign_getinfo ($userinfo['uid'], 0, 0, 0, true, strtotime (date ('Y-m-d')), time (), 1) ?>";
+		var error = "<?php echo sign_getinfo ($userinfo['uid'], 0, 0, 0, true, strtotime (date ('Y-m-d')), time (), -1) ?>";
+		var waiting = "<?php echo sign_getinfo ($userinfo['uid'], 0, 0, 0, true, 0, strtotime (date ('Y-m-d')), 1) ?>";
 		var data = {//折线图数据
 			labels : ["已签到的贴吧","签到出错的贴吧","等待签到的贴吧"],
 			datasets : [

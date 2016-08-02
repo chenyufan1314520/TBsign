@@ -1,8 +1,9 @@
 <?php if (!defined ('SYSTEM_ROOT')) exit (); ?>
 <?php
-	function cron_add ($url) // 添加一个计划任务
+	function cron_add ($name, $url) // 添加一个计划任务
     {
         $data = array (
+        	'name' => $name,
         	'url' => $url,
         	'lasttime' => 0,
         	'protect' => 0
@@ -23,12 +24,10 @@
     function cron_getinfo ($cid) // 获取某任务信息
     {
         // 初始化变量
-        $cid = $cid == 0 ? '%' : $cid;
+        $where = array ();
+        $cid == 0 ? : $where['cid'] = $cid;
         
         // 查询
-        $where = array (
-        	'cid[~]' => $cid
-        );
 		$ret = $GLOBALS['db']->select ('cron', '*', $where);
 
         return (count ($ret) == 0 ? '' : $ret);
@@ -41,7 +40,7 @@
 
     	// 执行
     	if (is_array ($croninfo)) {
-    		if (is_file (SYSTEM_ROOT . $croninfo[0]['url']))
+    		if (is_file (SYSTEM_ROOT . '/' . $croninfo[0]['url']))
     		{
     			require SYSTEM_ROOT . '/' . $croninfo[0]['url'];
     		}

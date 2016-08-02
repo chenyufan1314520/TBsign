@@ -22,12 +22,10 @@
     function group_getinfo ($gid, $limit = 0, $count = false) // 获取用户组信息
     {
         // 初始化变量
-        $gid = $gid == 0 ? '%' : $gid;
+        $where = array ();
+        $gid == 0 ? : $where['gid'] = $gid;
         
         // 查询
-        $where = array (
-        	'gid[~]' => $gid
-        );
 		if ($limit != 0) {
 			$where['LIMIT'] = $limit;
 		}

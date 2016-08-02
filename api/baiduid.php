@@ -44,16 +44,11 @@
     function baiduid_getinfo ($uid, $bid) // 获取某百度ID
     {
     	// 初始化变量
-        $uid = $uid == 0 ? '%' : $uid;
-        $bid = $bid == 0 ? '%' : $bid;
+    	$where = array ();
+        $uid == 0 ? : $where['AND']['uid'] = $uid;
+        $bid == 0 ? : $where['AND']['bid'] = $bid;
 
         // 查询
-        $where = array (
-        	'AND' => array (
-        		'uid[~]' => $uid,
-        		'bid[~]' => $bid
-        	)
-        );
 		$ret = $GLOBALS['db']->select ('baiduid', '*', $where);
 
 		// 返回

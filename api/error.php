@@ -131,7 +131,7 @@
 									if (isset ($GLOBALS['plugin_cuplugin'])) {
 										plugin_deactivate ($GLOBALS['plugin_cuplugin'], true);
 									}
-
+									
 									// 循环
 									foreach ($exception->getTrace () as $i => $ep_d) {
 										?>
@@ -149,32 +149,34 @@
 															echo $ep_d['function'];
 															echo '(';
 															
-															if (count ($ep_d['args']) != 0) {
+															if (isset ($ep_d['args']) && count ($ep_d['args']) != 0) {
 																$args_tmp = $ep_d['args'];
 																if (is_array ($args_tmp[0])) {
 																	$args_tmp = $args_tmp[0];
 																}
 
-																foreach ($args_tmp as &$arg_tmp) { // 防止数据库连接错误之后，数据库信息被爆出来
-																	switch ($arg_tmp) {
-																		case DBHOST:
-																			$arg_tmp = '%DBHOST%';
-																			break;
-																		case DBNAME:
-																			$arg_tmp = '%DBNAME%';
-																			break;
-																		case DBUSER:
-																			$arg_tmp = '%DBUSER%';
-																			break;
-																		case DBPASS:
-																			$arg_tmp = '%DBPASS%';
-																			break;
-																		case DBPREFIX:
-																			$arg_tmp = '%DBPREFIX%';
-																			break;
-																		case DBTYPE:
-																			$arg_tmp = '%DBTYPE%';
-																			break;
+																if (defined ('DBPASS')) {
+																	foreach ($args_tmp as &$arg_tmp) { // 防止数据库连接错误之后，数据库信息被爆出来
+																		switch ($arg_tmp) {
+																			case DBHOST:
+																				$arg_tmp = '%DBHOST%';
+																				break;
+																			case DBNAME:
+																				$arg_tmp = '%DBNAME%';
+																				break;
+																			case DBUSER:
+																				$arg_tmp = '%DBUSER%';
+																				break;
+																			case DBPASS:
+																				$arg_tmp = '%DBPASS%';
+																				break;
+																			case DBPREFIX:
+																				$arg_tmp = '%DBPREFIX%';
+																				break;
+																			case DBTYPE:
+																				$arg_tmp = '%DBTYPE%';
+																				break;
+																		}
 																	}
 																}
 

@@ -30,6 +30,7 @@ create table `%PREFIX%online`(
 ) default charset utf8;
 create table `%PREFIX%cron`(
     `cid` int primary key auto_increment,
+    `name` char(255) not null,
     `url` char(255) not null,
     `lasttime` int,
     `protect` int(1)
@@ -50,14 +51,3 @@ create table `%PREFIX%tieba`(
     `lasttime` int not null,
     `state` int not null
 ) default charset utf8;
--- 记录;
-insert into `%PREFIX%groups` values(1, '管理员');
-insert into `%PREFIX%groups` values(2, '用户');
-insert into `%PREFIX%groups` values(3, 'VIP');
-insert into `%PREFIX%groups` values(4, '禁止访问');
-insert into `%PREFIX%options` values('system_name', '云签', 0);
-insert into `%PREFIX%options` values('system_beian', '备你妈案', 0);
-insert into `%PREFIX%options` values('system_version', '1.0', 0);
-insert into `%PREFIX%options` values('system_theme', 'default', 0);
-insert into `%PREFIX%options` values('api_skey', '', 0);
-insert into `%PREFIX%cron` values(1, 'sign.php', 0, 1);

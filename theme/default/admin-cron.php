@@ -24,7 +24,7 @@
 		                                            </div>
 				                                    <div><button type="button" class="btn btn-info-alt btn-circle"><i class="fa fa-cog"></i></button></div>
 				                                </div>
-				                                <h3 class="widget-user-username"></h3>
+				                                <h3 class="widget-user-username"><?php echo $cronlist_d['name'] ?></h3>
 				                                <h5 class="widget-user-desc"></h5>
 				                            </div>
 				                            
