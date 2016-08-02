@@ -1,11 +1,15 @@
 <?php
     // 检查是否已安装，防止恶意访问
     if (is_file ('../config.php') == true) {
-        die ('云签已经安装完成。如需重新安装请删除config.php文件。');
+        die ('云签已经安装完成，如需重新安装请删除config.php文件。');
     }
     
+    // 请求包含少部分API文件
+    require_once '../api/error.php';
+	require_once '../api/db.php';
+    
     // 判断类型并载入对应模版
-    $step = @$_GET['step']; // 获取类型
+    $step = isset ($_GET['step']) ? $_GET['step'] : ''; // 获取类型
     switch ($step) {
         case '' || $step == '1': // 协议页
             // 判断操作类型
@@ -38,9 +42,8 @@
             if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                 require_once ('template/3.php');
             } else {
-                // 初始化
-                require_once '../api/db.php';
-                $siteurl = $_SERVER['HTTPS'] == 'on' ? 'https://' : 'http://' . $_SERVER['SERVER_NAME'] . dirname (dirname ($_SERVER['SCRIPT_NAME']));
+                // 初始化变量
+                $siteurl = isset ($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on' ? 'https://' : 'http://' . $_SERVER['SERVER_NAME'] . dirname (dirname ($_SERVER['SCRIPT_NAME']));
                 $db = new medoo (array (
 					'database_type' => 'mysql',
 					'database_name' => $_POST['dbname'],
@@ -67,7 +70,7 @@
                 	'password' => md5 (md5 (md5 ($_POST['pass']))),
                 	'time' => time (),
                 	'gid' => '1',
-                	'baiduid' => 'a:0:{}'
+                	'avatar' => 'https://gravatar.iwch.me/avatar/?s=200'
                 )); // 插入管理员账号
 
                 $db->insert ('options', array (

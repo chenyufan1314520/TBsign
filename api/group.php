@@ -19,7 +19,7 @@
 		$GLOBALS['db']->delete ('groups', $where);
     }
     
-    function group_getinfo ($gid) // 获取用户组信息
+    function group_getinfo ($gid, $limit = 0, $count = false) // 获取用户组信息
     {
         // 初始化变量
         $gid = $gid == 0 ? '%' : $gid;
@@ -28,8 +28,13 @@
         $where = array (
         	'gid[~]' => $gid
         );
-		$ret = $GLOBALS['db']->select ('groups', '*', $where);
+		if ($limit != 0) {
+			$where['LIMIT'] = $limit;
+		}
+		
+		$ret = $count ? $GLOBALS['db']->count ('groups', $where) : $GLOBALS['db']->select ('groups', '*', $where);
 
+		// 返回
         return (count ($ret) == 0 ? '' : $ret);
     }
 ?>

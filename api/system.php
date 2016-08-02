@@ -1,6 +1,7 @@
 <?php if (!defined ('SYSTEM_ROOT')) exit (); ?>
 <?php
-    function system_fetch ($url, $postdata = null, $cookie = null, $header = array ()) // 访问网页（非原创）
+	// 函数
+    function system_fetch ($url, $postdata = null, $cookie = null, $header = array (), $convert = false) // 访问网页（半原创）
 	{
 		$ch = curl_init ();
 		curl_setopt ($ch, CURLOPT_URL, $url);
@@ -19,6 +20,9 @@
 		curl_setopt ($ch, CURLOPT_TIMEOUT, 20);
 		$re = curl_exec ($ch);
 		curl_close ($ch);
+		if ($convert == true) {
+			$re = mb_convert_encoding ($re, 'UTF-8', 'GBK');
+		}
 		return $re;
 	}
 

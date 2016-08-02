@@ -45,34 +45,42 @@
 	    }
     }
 
-    function plugin_deactivate ($pcn) // 停用某插件
+    function plugin_deactivate ($pcn, $nocall = false) // 停用某插件
     {
     	// 获取插件信息
     	$pinfo = plugin_getinfo ($pcn);
     	$classname = $pinfo[0]['class'];
 
-    	// 启用插件
-    	require_once plugin_getroot ($pcn) . '/Plugin.php';
-    	if (class_exists ($classname)) {
-    		// 调用插件事件
-    		if (method_exists ($classname, 'deactivate')) {
-    			$classname::deactivate ();
-    		}
-    		
-	    	// 删除数据库信息
-	        $where = array (
-		    	'pcn' => $pcn
-		    );
-			$GLOBALS['db']->delete ('plugins', $where);
-	    }
+    	// 删除数据库信息
+        $where = array (
+	    	'pcn' => $pcn
+	    );
+		$GLOBALS['db']->delete ('plugins', $where);
+
+    	// 禁用插件
+    	if (!$nocall) {
+	    	require_once plugin_getroot ($pcn) . '/Plugin.php';
+	    	if (class_exists ($classname)) {
+	    		// 调用插件事件
+	    		if (method_exists ($classname, 'deactivate')) {
+	    			$classname::deactivate ();
+	    		}
+		    }
+		}
     }
 
     function plugin_runall () // 加载所有插件
     {
+    	// 初始化变量
+    	global $plugin_cuplugin;
+
     	// 获取所有已启用的插件
     	$plist = plugin_getinfo ('');
     	if (is_array ($plist)) {
 	    	foreach ($plist as $plist_d) {
+	    		// 记录
+	    		$plugin_cuplugin = $plist_d['pcn'];
+
 	    		// 包含插件
 	    		require_once plugin_getroot ($plist_d['pcn']) . '/Plugin.php';
 
@@ -82,6 +90,9 @@
 				}
 	    	}
 	    }
+
+	    // 销毁变量
+	    unset ($plugin_cuplugin);
     }
 
     function plugin_getstate ($pcn) // 检测某插件是否启用
@@ -101,7 +112,7 @@
     }
 	*/
     
-    function plugin_getinfo ($pcn) // 获取某插件信息
+    function plugin_getinfo ($pcn, $limit = 0, $count = false) // 获取某插件信息
     {
     	// 初始化变量
         $pcn = empty ($pcn) ? '%' : $pcn;
@@ -110,8 +121,13 @@
         $where = array (
         	'pcn[~]' => $pcn
         );
-		$ret = $GLOBALS['db']->select ('plugins', '*', $where);
+		if ($limit != 0) {
+			$where['LIMIT'] = $limit;
+		}
+		
+		$ret = $count ? $GLOBALS['db']->count ('plugins', $where) : $GLOBALS['db']->select ('plugins', '*', $where);
 
+		// 返回
         return (count ($ret) == 0 ? '' : $ret);
     }
 

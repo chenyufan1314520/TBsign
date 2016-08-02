@@ -13,7 +13,7 @@
                     
                     <div class="col-md-4">
                         <div class="box box-widget widget-user">
-                            <div class="widget-user-header bg-aqua-active">
+                            <div class="widget-user-header bg-aqua-active" style="background-color: <?php echo getcolor(); ?>;">
                                 <div class="btn-group-vertical plugin">
                                     <div class="pb"><button type="button" class="btn btn-info-alt btn-circle"><i class="fa fa-cog"></i></button></div>
                                     <div><button type="button" class="btn btn-danger-alt btn-circle"><i class="fa fa-trash"></i></button></div>

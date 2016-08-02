@@ -1,3 +1,4 @@
+<?php if (!defined ('SYSTEM_ROOT')) exit (); ?>
 <?php
 /*!
  * Medoo database framework

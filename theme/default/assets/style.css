@@ -162,3 +162,24 @@
 select {
     color: #000000!important;
 }
+
+
+.refurbish {
+    border: none;
+    position: fixed;
+    display: block;
+    right: 0;
+    bottom: 0;
+    margin-right: 40px;
+    margin-bottom: 60px;
+    z-index: 900;
+    border-radius: 50%;
+    background-color: #ff4081;
+    color: #fff!important;
+    font-size: 20px;
+    height: 56px;
+    line-height: 28px;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    width: 56px;
+}

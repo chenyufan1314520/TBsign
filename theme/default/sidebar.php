@@ -3,7 +3,7 @@
     <section class="sidebar">
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="https://gravatar.iwch.me/avatar/<?php echo md5 (strtolower ($userinfo['email'])); ?>?s=200" class="img-circle" alt="User Image">
+          <img src="<?php echo $userinfo['avatar'] ?>" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
           <p> <?php echo $userinfo['name']; ?> </p>
@@ -23,6 +23,15 @@
                 <i class="fa fa-link"></i> <span> 账号管理</span>
             </a>
         </li>
+        <li class="treeview <?php if (@$_GET['mod'] == 'showtb') echo 'active'; ?>">
+            <a href="./index.php?mod=showtb">
+                <i class="fa fa-link"></i> <span> 贴吧列表</span>
+            </a>
+        </li>
+        <?php
+	    	// 钩子
+			hook_trigger ('sidebar_1');
+	    ?>
         
         <?php 
             if ($userinfo['gid'] == 1) {
@@ -43,11 +52,21 @@
                             <i class="fa fa-server"></i> <span> 插件管理</span>
                         </a>
                     </li>
+                    <!--
                     <li class="treeview <?php if ($_GET['mod'] == 'admin-theme') echo 'active'; ?>">
                         <a href="./index.php?mod=admin-theme">
                             <i class="fa fa-cogs"></i> <span> 主题管理</span>
                         </a>
+                    </li> -->
+                    <li class="treeview <?php if ($_GET['mod'] == 'admin-cron') echo 'active'; ?>">
+                        <a href="./index.php?mod=admin-cron">
+                            <i class="fa fa-clock-o"></i> <span> 计划任务</span>
+                        </a>
                     </li>
+                    <?php
+                    	// 钩子
+						hook_trigger ('sidebar_admin_1');
+                    ?>
                 <?
             }
         ?>

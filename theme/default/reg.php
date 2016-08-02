@@ -38,6 +38,10 @@
         <input type="password" class="form-control" placeholder="密码" name="password" id="password">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
+      <?php
+        // 钩子
+		hook_trigger ('reg_form_1');
+      ?>
       <div class="row">
         <div class="col-xs-4">
           <button type="submit" id="reg" class="btn btn-primary btn-block btn-flat">注册</button>

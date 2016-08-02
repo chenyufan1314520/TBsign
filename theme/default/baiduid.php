@@ -10,7 +10,7 @@
                         
                     <div class="col-md-12">
                         <div class="callout callout-warning">
-                            <p>当前已绑定 <?php echo count ($userinfo['baiduid']) ?> 个账号。</p>
+                            <p>当前已绑定 <?php echo count ($baiduidinfo) ?> 个账号。</p>
                         </div>
                         
                         <div class="nav-tabs-custom">
@@ -24,29 +24,31 @@
                                 <!-- 已绑定的账户 -->
                                 <div class="tab-pane active" id="adminid">
                                     <?php
-                                    	if (is_array ($userinfo['baiduid'])) {
-	                                        foreach ($userinfo['baiduid'] as $bid => $baiduidlist_d) {
+                                    	if (is_array ($baiduidinfo)) {
+	                                        foreach ($baiduidinfo as $baiduidlist_d) {
 	                                            ?>
 	                                                <div class="box box-widget widget-user bid">
 	                                                    <div class="widget-user-header bg-aqua-active" style="background-color: <?php echo getcolor(); ?>;">
 	                                                        <div class="btn-group-vertical plugin">
-	                                                            <div class="pb"><button type="button" id="delbduss" onclick="delbduss('<?php echo $baiduidlist_d['bduss'] ?>')" class="btn btn-danger-alt btn-circle"><i class="fa fa-trash"></i></button></div>
+	                                                            <div class="pb"><button type="button" id="delbduss" onclick="delbduss('<?php echo $baiduidlist_d['bid'] ?>')" class="btn btn-danger-alt btn-circle"><i class="fa fa-trash"></i></button></div>
 	                                                        </div>
-	                                                        <h3 class="widget-user-username"></h3>
+	                                                        <h3 class="widget-user-username"><?php echo $baiduidlist_d['name'] ?></h3>
 	                                                    </div>
-			                            
+			                                            <div class="widget-user-image">
+    	                                                    <img class="img-circle" src="<?php echo $baiduidlist_d['avatar'] ?>" alt="User Avatar">
+	                                                    </div>
 	                                                    <div class="box-footer">
 	                                                        <div class="row">
 	                                                            <div class="col-sm-6 border-right">
 	                                                                <div class="description-block">
-	                                                                    <h5 class="description-header"><?php echo $bid + 1 ?></h5>
+	                                                                    <h5 class="description-header"><?php echo $baiduidlist_d['bid'] ?></h5>
 	                                                                    <span class="description-text">BID</span>
 	                                                                </div>
 	                                                            </div>
 			                                    
 	                                                            <div class="col-sm-6">
 	                                                                <div class="description-block">
-	                                                                    <h5 class="description-header"> </h5>
+	                                                                    <h5 class="description-header"><?php echo sign_getinfo ($baiduidlist_d['bid'], 0, 0, true) ?></h5>
 	                                                                    <span class="description-text">贴吧数量</span>
 	                                                                </div>
 	                                                            </div>
@@ -127,8 +129,8 @@ $("#addbdid_submit").click(function(){
         success: function(result){
             if(result.code==0){
                 var tiebaret=eval("("+result.info+")");
-                console.log(tiebaret);
                 if(typeof(tiebaret.user)!='undefined'){
+                	console.log (tiebaret.user);
                 	addbduss(tiebaret['user']['BDUSS']);
                 }else{
                 	switch(tiebaret.error_code){
@@ -142,7 +144,7 @@ $("#addbdid_submit").click(function(){
                 	notie('warning',tiebaret['error_msg'], true)
                 }
             }else{
-                notie('error',result.msg , true)
+                notie('error',result.msg, true)
             }
         } 
     });
@@ -169,12 +171,12 @@ function addbduss(bduss){
     });
 }
 
-function delbduss(bduss){
+function delbduss(bid){
     $.ajax({ 
         type: "post", 
         url : "./ajax.php?mod=baiduid", 
         dataType: "json",
-        data: "do=delete&bduss="+bduss, 
+        data: "do=delete&bid="+bid, 
         success: function(result){
             if (result.code == 0) {
                 notie('success', '删除成功', true);

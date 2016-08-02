@@ -18,27 +18,37 @@
         	'password' => md5 (md5 (md5 ($password))),
         	'time' => time (),
         	'gid' => '2',
-        	'baiduid' => 'a:0:{}'
+        	'avatar' => 'https://gravatar.iwch.me/avatar/?s=200'
         );
         $ret = $GLOBALS['db']->insert ('users', $data);
         
         return $ret;
     }
     
-    function user_delete ($uid) //  账号
+    function user_delete ($uid) // 删除账号
     {
+    	// 删除表
 		$where = array (
 			'uid' => $uid
 		);
 		$GLOBALS['db']->delete ('users', $where);
+
+		// 删除所绑定的百度帐号
+		$baiduidlist = baiduid_getinfo ($uid, 0);
+		foreach ($baiduidlist as $baiduidlist_d) {
+			baiduid_delete ($uid, $baiduidlist_d['bid']);
+		}
     }
     
     function user_login ($uid, $password) // 登录账号
     {
         // 验证信息
         $userinfo = user_getinfo ($uid);
-        if (md5 (md5 (md5 ($password))) != $userinfo[0]['password']) { // 判断帐号密码是否正确
-            return -1;
+        if (!is_array ($userinfo)) { // 账号不正确
+        	return -1;
+        }
+        if (md5 (md5 (md5 ($password))) != $userinfo[0]['password']) { // 密码不正确
+            return -2;
         }
         
         // 登录
@@ -80,7 +90,7 @@
         return (count ($ret) == 0 ? -1 : $ret[0]);
     }
     
-    function user_getinfo ($uid) // 获取帐号信息
+    function user_getinfo ($uid, $limit = 0, $count = false) // 获取帐号信息
     {
         // 初始化变量
         $uid = $uid == 0 ? '%' : $uid;
@@ -89,8 +99,13 @@
         $where = array (
         	'uid[~]' => $uid
         );
-		$ret = $GLOBALS['db']->select ('users', '*', $where);
+        if ($limit != 0) {
+			$where['LIMIT'] = $limit;
+		}
 
+		$ret = $count ? $GLOBALS['db']->count ('users', $where) : $GLOBALS['db']->select ('users', '*', $where);
+
+		// 返回
         return (count ($ret) == 0 ? '' : $ret);
     }
     
@@ -105,7 +120,7 @@
         return (count ($ret) == 0 ? -1 : $ret[0]);
     }
     
-    function user_getlogininfo ($uid) // 获取帐号登录信息
+    function user_getlogininfo ($uid, $limit = 0, $count = false) // 获取帐号登录信息
     {
         // 初始化变量
         $uid = $uid == 0 ? '%' : $uid;
@@ -114,8 +129,13 @@
         $where = array (
         	'uid[~]' => $uid
         );
-		$ret = $GLOBALS['db']->select ('online', '*', $where);
+        if ($limit != 0) {
+			$where['LIMIT'] = $limit;
+		}
 
+		$ret = $count ? $GLOBALS['db']->count ('online', $where) : $GLOBALS['db']->select ('online', '*', $where);
+
+		// 返回
         return (count ($ret) == 0 ? '' : $ret);
     }
     
@@ -145,6 +165,17 @@
     {
         $data = array (
         	'email' => $email
+        );
+        $where = array (
+        	'uid' => $uid
+        );
+        $GLOBALS['db']->update ('users', $data, $where);
+    }
+    
+    function user_setavatar ($uid, $avatarurl) // 设置某账号的头像
+    {
+    	$data = array (
+        	'avatar' => $avatarurl
         );
         $where = array (
         	'uid' => $uid

@@ -1,6 +1,8 @@
 <?php if (!defined ('SYSTEM_ROOT')) exit (); ?>
 <footer class="main-footer">
+	<?php hook_trigger ('footer_1') ?>
     <strong>Copyright &copy; 2016 <a href="<?php echo $siteinfo['url']; ?>"><?php echo $siteinfo['name']; ?></a>.</strong> All rights reserved.
+    <?php hook_trigger ('footer_2') ?>
 </footer>
 
 <div class="control-sidebar-bg"></div>
@@ -24,9 +26,6 @@
                     <input type="password" class="form-control" id="password" placeholder="留空则不修改密码">
                 </div>
                 <br>
-                <div class="input-group pull-right">
-                    <button type="submit" id="updata" class="btn btn-info">Submit</button>
-                </div>
             </div>
         </div>
         
@@ -34,24 +33,25 @@
             <h3 class="control-sidebar-heading">头像设置</h3>
             <div class="form-horizontal">
                 <div class="input-group checkbox">
-                    <input id="Gravatar" type="radio" name="do" value="gravatar" checked>
+                    <input id="Gravatar" type="radio" name="avatar" value="Gravatar" checked>
                     <label for="Gravatar">使用Gravatar头像</label>
                 </div>
-                <div class="input-group checkbox">
-                    <input id="TBavatar" type="radio" name="do" value="TBavatar">
+                <!--<div class="input-group checkbox">
+                    <input id="TBavatar" type="radio" name="avatar" value="TBavatar">
                     <label for="TBavatar">使用贴吧头像</label>
                 </div>
                 <div id="show">
                     <br>
                     <input type="text" value="" class="form-control" placeholder="贴吧用户名">
-                </div>
+                </div>-->
                 <br>
-                <div class="input-group pull-right">
-                    <button type="submit" id="updata" class="btn btn-info">Submit</button>
-                </div>
             </div>
         </div>
-
+        
+		<div class="input-group pull-right">
+            <button type="submit" id="updata" class="btn btn-info">Submit</button>
+        </div>
+        	
     </div>
 </aside>
 <script src="<?php echo $siteinfo['theme']['url']; ?>/assets/plugins/jQuery/jQuery-2.2.0.min.js"></script>
@@ -66,21 +66,22 @@
 <script src="<?php echo $siteinfo['theme']['url']; ?>/assets/plugins/chartjs/Chart.min.js"></script>
 <script src="<?php echo $siteinfo['theme']['url']; ?>/assets/plugins/notice/notice.js"></script>
 <script>
-$(function () {
-    $("#show").hide();
+//$(function () {
+    //$("#show").hide();
                         
-    $("#TBavatar").click(function(){ $("#Gravatar").attr("checked", false); $("#show").show(); }); $("#Gravatar").click(function(){ $("#TBavatar").attr("checked", false); $("#show").hide(); });
-});
+    //$("#TBavatar").click(function(){ $("#Gravatar").attr("checked", false); $("#show").show(); }); $("#Gravatar").click(function(){ $("#TBavatar").attr("checked", false); $("#show").hide(); });
+//});
 
-$("#updata").click(function(){  
+$("#updata").click(function(){
     var email = $("#email").val(); 
     var password = $("#password").val();
+    var avatar = $('input[name=avatar]:checked').val();
     
     $.ajax({ 
         type: "post", 
         url : "./ajax.php?mod=profile", 
         dataType: "json",
-        data: "email="+email+"&password="+password, 
+        data: "email="+email+"&password="+password+"&avatar_type="+avatar, 
         success: function(result){
             if (result.code == 0) {
                 notie('success', '修改成功', true);

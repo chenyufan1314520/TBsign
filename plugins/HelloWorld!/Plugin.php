@@ -1,3 +1,4 @@
+<?php if (!defined ('SYSTEM_ROOT')) exit (); ?>
 <?php
 	/*
 	-----BEGIN INFO-----
@@ -12,7 +13,7 @@
 	*/
 
 	class HelloWorld {
-		public function render () {
+		public static function render () {
 			echo '<script>alert("我只是一个插件(*/ω＼*)");</script>';
 		}
 	}

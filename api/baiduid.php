@@ -1,64 +1,75 @@
 <?php if (!defined ('SYSTEM_ROOT')) exit (); ?>
 <?php
-    function baiduid_add ($uid, $bduss) // 添加一条bduss
+    function baiduid_add ($uid, $bduss) // 添加一条百度ID
     {
         // 判断是否已存在
-        $pbduss = baiduid_getinfo ($uid);
         if (baiduid_search ($uid, $bduss) != -1) {
     		return -1;
     	}
 
-        // 添加bduss
-        $pbduss[] = array ('bduss' => $bduss);
-        
-        // 更新bduss
-        baiduid_setbduss ($uid, $pbduss);
-    }
-    
-    function baiduid_delete ($uid, $bduss) // 删除一条bduss
-    {
-        // 判断是否存在
-        $pbduss = baiduid_getinfo ($uid);
-        if (baiduid_search ($uid, $bduss) == -1) {
-    		return -1;
+    	// 判断是否合法
+    	if (!is_array (($baiduidinfo = tieba_getuserinfo ($bduss)))) {
+    		return -2;
     	}
-        
-        // 删除bduss
-        unset ($pbduss[baiduid_search ($uid, $bduss)]);
-        
-        // 更新bduss
-        baiduid_setbduss ($uid, $pbduss);
+
+        // 添加bduss
+        $data = array (
+        	'bid' => NULL,
+        	'uid' => $uid,
+        	'bduss' => $bduss,
+        	'name' => $baiduidinfo['data']['user_name_show'],
+        	'avatar' => 'http://tb.himg.baidu.com/sys/portrait/item/' . $baiduidinfo['data']['user_portrait']
+        );
+        $ret = $GLOBALS['db']->insert ('baiduid', $data);
+
+        // 返回
+        return $ret;
     }
     
-    function baiduid_getinfo ($uid) // 获取某用户的bduss
+    function baiduid_delete ($uid, $bid) // 删除一条百度ID
     {
+    	// 删除表
         $where = array (
-        	'uid' => $uid
-        );
-		$ret = $GLOBALS['db']->select ('users', 'baiduid', $where);
+        	'AND' => array (
+        		'uid' => $uid,
+        		'bid' => $bid
+        	)
+		);
+		$GLOBALS['db']->delete ('baiduid', $where);
 
-        return unserialize ($ret[0]);
+		// 删除所刷新的贴吧列表
+		sign_deleteall ($uid, $bid);
     }
 
-    function baiduid_search ($uid, $bduss) { // 从bduss获取bid
-        $baiduidlist = baiduid_getinfo ($uid);
-        foreach ($baiduidlist as $i => $baiduidlist_d) {
-            if ($baiduidlist_d['bduss'] == $bduss) {
-                return $i;
-            }
-        }
+    function baiduid_getinfo ($uid, $bid) // 获取某百度ID
+    {
+    	// 初始化变量
+        $uid = $uid == 0 ? '%' : $uid;
+        $bid = $bid == 0 ? '%' : $bid;
 
-        return -1;
+        // 查询
+        $where = array (
+        	'AND' => array (
+        		'uid[~]' => $uid,
+        		'bid[~]' => $bid
+        	)
+        );
+		$ret = $GLOBALS['db']->select ('baiduid', '*', $where);
+
+		// 返回
+		return (count ($ret) == 0 ? '' : $ret);
     }
 
-    function baiduid_setbduss ($uid, $bduss) // 手动设置bduss
+    function baiduid_search ($uid, $bduss) // 搜索百度ID
     {
-		$data = array (
-        	'baiduid' => serialize ($bduss)
-        );
         $where = array (
-        	'uid' => $uid
+        	'AND' => array (
+        		'uid' => $uid,
+        		'bduss' => $bduss
+        	)
         );
-        $GLOBALS['db']->update ('users', $data, $where);
+		$ret = $GLOBALS['db']->select ('baiduid', 'bid', $where);
+        
+        return (count ($ret) == 0 ? -1 : $ret[0]);
     }
 ?>

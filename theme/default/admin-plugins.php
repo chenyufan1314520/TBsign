@@ -85,7 +85,10 @@ function activate(pcn) {
             } else {
                 notie('error', result.msg , true);
             }
-        } 
+        },
+        error: function(result){
+    		notie('error', '启用失败，可能是插件含有错误或者你的网络问题', true);
+        }
     });
 }
 
