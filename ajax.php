@@ -39,6 +39,9 @@
 			if (empty ($_POST['name']) || empty ($_POST['email']) || empty ($_POST['password'])) {
 				exit (json_encode (array ('code' => -9999, 'msg' => '参数为空')));
 			}
+			if (!preg_match ('#^[0-9a-zA-Z_]+$#', $_POST['name'])) {
+				exit (json_encode (array ('code' => -3, 'msg' => '昵称包含非法字符（可使用数字、字母、下划线）')));
+			}
 
 			// 注册
 			$reguid = user_register ($_POST['name'], $_POST['email'], $_POST['password']);
