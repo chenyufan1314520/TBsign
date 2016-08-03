@@ -85,8 +85,9 @@ $("#login").click(function(){
         data: "user="+user+"&password="+password, 
         success: function(result){
             if (result.code == 0) {
+                notie('success', '登录成功', true);
                 $.cookie('uss', result.uss);
-                window.location.href="./index.php";
+                setTimeout('window.location.href="./index.php"',500)
             } else if (result.code == -1) {
                 notie('error', result.msg, true)
             }

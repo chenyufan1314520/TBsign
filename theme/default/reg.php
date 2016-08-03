@@ -86,7 +86,8 @@ $("#reg").click(function(){
         data: "name="+name+"&email="+email+"&password="+password, 
         success: function(result){
             if (result.code == 0) {
-                window.location.href="./index.php";
+                notie('success', '注册成功', true);
+                setTimeout('window.location.href="./index.php"',500)
             }  
             if (result.code == -1) {
                 notie('error', result.msg, true)
