@@ -86,6 +86,7 @@ function reftieba(bid){
             if (result.code == 0) {
                 notie('success', '刷新成功', true);
                 $("#reftieba").attr("disabled",false);
+				setTimeout("window.location.reload()",500)
             } else {
                 notie('error', result.msg , true);
                 $("#reftieba").attr("disabled",false);

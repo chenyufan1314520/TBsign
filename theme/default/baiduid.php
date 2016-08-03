@@ -146,6 +146,7 @@ $("#addbdid_submit").click(function(){
             }else{
                 notie('error',result.msg, true)
             }
+            setTimeout("window.location.reload()",500)
         } 
     });
 });
@@ -163,7 +164,8 @@ function addbduss(bduss){
         data: "do=add&bduss="+bduss, 
         success: function(result){
             if (result.code == 0) {
-                notie('success', '添加成功，请手动刷新', true);
+                notie('success', '添加成功', true);
+                setTimeout("window.location.reload()",500)
             } else {
                 notie('error', result.msg , true)
             }
@@ -180,6 +182,7 @@ function delbduss(bid){
         success: function(result){
             if (result.code == 0) {
                 notie('success', '删除成功', true);
+                setTimeout("window.location.reload()",500)
             } else {
                 notie('error', result.msg , true);
             }

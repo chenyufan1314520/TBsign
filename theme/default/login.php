@@ -77,27 +77,21 @@ $("body").keydown(function() {
 $("#login").click(function(){ 
     var user = $("#user").val(); 
     var password = $("#password").val();
-    var rename = /^[a-zA-z]\w{3,15}$/ ;
-    var remail = /^(\w-*\.*)+@(\w-?)+(\.\w{2,110})+$/ ;
-    
-    if (rename.test(user) || remail.test(user)) {
-        $.ajax({ 
-            type: "post", 
-            url : "./ajax.php?mod=login", 
-            dataType: "json",
-            data: "user="+user+"&password="+password, 
-            success: function(result){
-                if (result.code == 0) {
-                    $.cookie('uss', result.uss);
-                    window.location.href="./index.php";
-                } else if (result.code == -1) {
-                    notie('error', result.msg, true)
-                }
-            } 
-        });
-    } else {
-        notie('error', '请使用字母、数字、下划线', true)
-    }
+
+    $.ajax({ 
+        type: "post", 
+        url : "./ajax.php?mod=login", 
+        dataType: "json",
+        data: "user="+user+"&password="+password, 
+        success: function(result){
+            if (result.code == 0) {
+                $.cookie('uss', result.uss);
+                window.location.href="./index.php";
+            } else if (result.code == -1) {
+                notie('error', result.msg, true)
+            }
+        } 
+    });
 });
 
 </script>

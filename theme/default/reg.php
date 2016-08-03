@@ -78,27 +78,21 @@ $("#reg").click(function(){
     var name = $("#name").val(); 
     var email = $("#email").val(); 
     var password = $("#password").val();
-    var rename = /^[a-zA-z]\w{3,15}$/ ;
-    var remail = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/ ;
-    
-    if (rename.test(user) && remail.test(email)) {
-        $.ajax({ 
-            type: "post", 
-            url : "./ajax.php?mod=reg", 
-            dataType: "json",
-            data: "name="+name+"&email="+email+"&password="+password, 
-            success: function(result){
-                if (result.code == 0) {
-                    window.location.href="./index.php";
-                }  
-                if (result.code == -1) {
-                    notie('error', result.msg, true)
-                }
-            } 
-        });
-    } else {
-        notie('error', '请使用字母、数字、下划线注册', true)
-    }
+
+    $.ajax({ 
+        type: "post", 
+        url : "./ajax.php?mod=reg", 
+        dataType: "json",
+        data: "name="+name+"&email="+email+"&password="+password, 
+        success: function(result){
+            if (result.code == 0) {
+                window.location.href="./index.php";
+            }  
+            if (result.code == -1) {
+                notie('error', result.msg, true)
+            }
+        } 
+    });
 });
 </script>
 </body>
