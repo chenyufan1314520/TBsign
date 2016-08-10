@@ -7,6 +7,7 @@
 	hook_trigger ('sign_1');
 	
     // 获取贴吧信息
+    $error = false;
     $tiebalist = sign_getinfo (0, 0, 0, 0, false, 0, strtotime (date ('Y-m-d')), 0);
     if (is_array ($tiebalist)) {
 	    foreach ($tiebalist as $tiebalist_d) {
@@ -22,14 +23,39 @@
 		    	// 签到
 		    	$signinfo = tieba_sign ($baiduidinfo[0]['bduss'], $tiebalist_d['kw']);
 		    	if (is_array ($signinfo)) {
-		    		if ($signinfo['error_code'] == '0' || $signinfo['error_code'] == '160002') { // 判断是否签到成功
-		    			sign_setstate ($tiebalist_d['kid'], 1);
-		    		} else {
-		    			sign_setstate ($tiebalist_d['kid'], $signinfo['error_code']);
-		    		}
+                    // 钩子
+                    hook_trigger ('sign_4');
+
+                    // 判断错误代码
+		    		switch ($signinfo['error_code']) {
+                        case '160002':
+                            $signinfo['error_code'] = '0';
+                        case '0':
+                            sign_setstate ($tiebalist_d['kid'], 1);
+                            break;
+                        case '340011':
+                            $error = true;
+                            break;
+                        default:
+                            sign_setstate ($tiebalist_d['kid'], $signinfo['error_code']);
+                            break;
+                    }
 		    	}
-		    	sign_setlasttime ($tiebalist_d['kid'], time ());
+                // 钩子
+                hook_trigger ('sign_5');
+
+                // 更改状态
+                if ($error == false) {
+                    sign_setlasttime ($tiebalist_d['kid'], time ());
+                } else {
+                    $error = false;
+                }
 		    }
+            // 钩子
+            hook_trigger ('sign_6');
 	    }
 	}
+
+    // 钩子
+    hook_trigger ('sign_7');
 ?>
