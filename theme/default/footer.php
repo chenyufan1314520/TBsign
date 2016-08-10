@@ -1,7 +1,7 @@
 <?php if (!defined ('SYSTEM_ROOT')) exit (); ?>
 <footer class="main-footer">
 	<?php hook_trigger ('footer_1') ?>
-    <strong>Copyright &copy; 2016 <a href="<?php echo $siteinfo['url']; ?>"><?php echo $siteinfo['name']; ?></a>.</strong> All rights reserved.
+    <strong>Copyright &copy; 2016 <a href="<?php echo $siteinfo['url']; ?>"><?php echo $siteinfo['name']; ?></a></strong>  |  <a href="http://www.miitbeian.gov.cn/" target="_blank" rel="nofollow"><?php echo system_getbeian() ?></a>
     <?php hook_trigger ('footer_2') ?>
 </footer>
 

@@ -7,7 +7,10 @@
 		$data = array (
 			'url' => system_geturl ()
 		);
-		$ret = json_decode (system_fetch ($url, $data), true);
+		$header = array (
+	    	'tbsignversion' => system_getnotice ()
+	    );
+		$ret = json_decode (system_fetch ($url, $data, NULL, $header), true);
 		
 		// 分析
 		if ($ret['code'] == 0) {

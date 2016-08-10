@@ -41,7 +41,7 @@
 		sign_deleteall ($uid, $bid);
     }
 
-    function baiduid_getinfo ($uid, $bid) // 获取某百度ID
+    function baiduid_getinfo ($uid, $bid, $limit = 0, $count = false) // 获取某百度ID
     {
     	// 初始化变量
     	$where = array ();
@@ -49,8 +49,12 @@
         $bid == 0 ? : $where['AND']['bid'] = $bid;
 
         // 查询
-		$ret = $GLOBALS['db']->select ('baiduid', '*', $where);
-
+        if ($limit != 0) {
+			$where['LIMIT'] = $limit;
+		}
+		
+		$ret = $count ? $GLOBALS['db']->count ('baiduid', $where) : $GLOBALS['db']->select ('baiduid', '*', $where);
+		
 		// 返回
 		return (count ($ret) == 0 ? '' : $ret);
     }

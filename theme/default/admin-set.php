@@ -81,6 +81,7 @@ $("#set").click(function(){
         success: function(result){
             if (result.code == 0) {
                 notie('success', '提交成功', true)
+                setTimeout("window.location.reload()",500)
             } else if (result.code == -1) {
                 notie('error', result.msg, true)
             }

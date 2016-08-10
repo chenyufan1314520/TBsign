@@ -35,8 +35,37 @@
                                             </div>
 		                                    <div><button type="button" class="btn btn-info-alt btn-circle"><i class="fa fa-cog"></i></button></div>
 		                                </div>
-		                                <h3 class="widget-user-username"><?php echo $pinfo_f['PluginName'] ?></h3>
-		                                <h5 class="widget-user-desc"><?php echo $pinfo_f['Author'] ?></h5>
+		                                <h3 class="widget-user-username">
+	                            			<?php
+		                            			if (!empty ($pinfo_f['AuthorURL'])) {
+		                            				?>
+		                            					<a href="<?php echo $pinfo_f['AuthorURL'] ?>">
+		                            				<?php 
+		                            			}
+		                            			echo $pinfo_f['PluginName'];
+		                            			if (!empty ($pinfo_f['AuthorURL'])) {
+		                            				?>
+		                            					</a>
+		                            				<?php 
+		                            			}
+		                        			?>
+		                                </h3>
+                                        <h5 class="widget-user-desc"><?php echo $pinfo_f['Description'] ?></h5>
+		                                <h5 class="widget-user-desc">
+                                			<?php
+	                                			if (!empty ($pinfo_f['AuthorEmail'])) {
+	                                				?>
+	                                					<a href="mailto:<?php echo $pinfo_f['AuthorEmail'] ?>">
+	                                				<?php 
+	                                			}
+	                                			echo $pinfo_f['Author'];
+	                                			if (!empty ($pinfo_f['AuthorEmail'])) {
+	                                				?>
+	                                					</a>
+	                                				<?php 
+	                                			}
+                                			?>
+		                                </h5>
 		                            </div>
 		                            
 		                            <div class="box-footer">

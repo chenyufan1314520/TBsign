@@ -346,10 +346,36 @@ function _init() {
       if ($.AdminLTE.options.sidebarExpandOnHover
           || ($('body').hasClass('fixed')
           && $('body').hasClass('sidebar-mini'))) {
-        
+        this.expandOnHover();
       }
     },
-  }
+    expandOnHover: function () {
+      var _this = this;
+      var screenWidth = $.AdminLTE.options.screenSizes.sm - 1;
+      //Expand sidebar on hover
+      $('.main-sidebar').hover(function () {
+        if ($('body').hasClass('sidebar-mini')
+            && $("body").hasClass('sidebar-collapse')
+            && $(window).width() > screenWidth) {
+          _this.expand();
+        }
+      }, function () {
+        if ($('body').hasClass('sidebar-mini')
+            && $('body').hasClass('sidebar-expanded-on-hover')
+            && $(window).width() > screenWidth) {
+          _this.collapse();
+        }
+      });
+    },
+    expand: function () {
+      $("body").removeClass('sidebar-collapse').addClass('sidebar-expanded-on-hover');
+    },
+    collapse: function () {
+      if ($('body').hasClass('sidebar-expanded-on-hover')) {
+        $('body').removeClass('sidebar-expanded-on-hover').addClass('sidebar-collapse');
+      }
+    }
+  };
 
   /* Tree()
    * ======
@@ -455,7 +481,7 @@ function _init() {
     open: function (sidebar, slide) {
       //Slide over content
       if (slide) {
-        sidebar.addClass('control-sidebar-open setind');
+        sidebar.addClass('control-sidebar-open');
       } else {
         //Push the content by adding the open class to the body instead
         //of the sidebar itself
@@ -465,7 +491,7 @@ function _init() {
     //Close the control sidebar
     close: function (sidebar, slide) {
       if (slide) {
-        sidebar.removeClass('control-sidebar-open setind');
+        sidebar.removeClass('control-sidebar-open');
       } else {
         $('body').removeClass('control-sidebar-open');
       }

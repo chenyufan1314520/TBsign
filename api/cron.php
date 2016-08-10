@@ -20,7 +20,18 @@
 		);
 		$GLOBALS['db']->delete ('cron', $where);
     }
-
+	
+	function cron_search ($name) // 搜索一个计划任务
+    {
+        $where = array (
+        	'name' => $name,
+        	'LIMIT' => 1
+        );
+		$ret = $GLOBALS['db']->select ('cron', 'cid', $where);
+        
+        return (count ($ret) == 0 ? -1 : $ret[0]);
+    }
+	
     function cron_getinfo ($cid) // 获取某任务信息
     {
         // 初始化变量

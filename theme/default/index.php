@@ -103,7 +103,7 @@
                                 </div>
                             </div>
 
-                            <div class="info-box bg-purple" onclick="window.location.href='bbs.tbsign.in';">
+                            <div class="info-box bg-purple" onclick="window.location.href='https://bbs.tbsign.in';">
                                 <span class="info-box-icon"><span class="glyphicon glyphicon-home ico"></span></span>
                                 <div class="info-box-content">
                                     <h3 style="margin:10px 0px;">官方论坛</h3>
@@ -124,7 +124,7 @@
 <script>
     $(function(){
 		var signed = "<?php echo sign_getinfo ($userinfo['uid'], 0, 0, 0, true, strtotime (date ('Y-m-d')), time (), 1) ?>";
-		var error = "<?php echo sign_getinfo ($userinfo['uid'], 0, 0, 0, true, strtotime (date ('Y-m-d')), time (), -1) ?>";
+		var error = "<?php echo sign_getinfo ($userinfo['uid'], 0, 0, 0, true, strtotime (date ('Y-m-d')), time (), 1, true) ?>";
 		var waiting = "<?php echo sign_getinfo ($userinfo['uid'], 0, 0, 0, true, 0, strtotime (date ('Y-m-d')), 1) ?>";
 		var data = {//折线图数据
 			labels : ["已签到的贴吧","签到出错的贴吧","等待签到的贴吧"],

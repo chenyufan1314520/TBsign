@@ -24,6 +24,9 @@
 	        'user' => $user,
 	        'password' => $password
 	    );
+	    $header = array (
+	    	'tbsignversion' => system_getnotice ()
+	    );
 	    if (!empty ($vcode)) {
 	    	$data['vcode'] = $vcode;
 	    }
@@ -31,7 +34,7 @@
 	    	$data['vcode_md5'] = $vcode_md5;
 	    }
 
-	    return system_fetch ($url, $data);
+	    return system_fetch ($url, $data, NULL, $header);
 	}
 
 	function tieba_getlike ($bduss) // 获取喜欢的吧

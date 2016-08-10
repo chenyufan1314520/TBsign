@@ -1,12 +1,12 @@
 <?php
 	// 检查是否已安装
-    if (!is_file ('./config.php')) {
+    if (!is_file (__DIR__ . '/config.php')) {
         exit ();
     }
-    
+
     // 定义
     define ('INFO', true);
-    
+
 	// 加载配置
 	require_once 'init.php';
 
@@ -16,7 +16,7 @@
 	    case 'login': // 登录页
 	    	// 钩子
 			hook_trigger ('ajax_login_1');
-			
+
 			// 检查
 			if (empty ($_POST['user']) || empty ($_POST['password'])) {
 				exit (json_encode (array ('code' => -9999, 'msg' => '参数为空')));
@@ -24,7 +24,7 @@
 
 			// 登录
 			$uss = user_login (user_search ($_POST['user']), $_POST['password']);
-			
+
 			// 返回
 			if ($uss >= 0) {
 				exit (json_encode (array ('code' => 0, 'uss' => $uss)));
@@ -34,7 +34,7 @@
 	    case 'reg': // 注册页
 	    	// 钩子
 			hook_trigger ('ajax_reg_1');
-			
+
 			// 检查
 			if (empty ($_POST['name']) || empty ($_POST['email']) || empty ($_POST['password'])) {
 				exit (json_encode (array ('code' => -9999, 'msg' => '参数为空')));
@@ -57,7 +57,7 @@
 	    case 'admin-user': // 用户管理页
 	    	// 钩子
 			hook_trigger ('ajax_admin-user_1');
-			
+
 			// 检查
 			if (empty ($_POST['do']) || !isset ($userinfo)) {
 				exit (json_encode (array ('code' => -9999, 'msg' => '参数为空')));
@@ -84,7 +84,7 @@
 	    case 'profile': // 用户页
 	    	// 钩子
 			hook_trigger ('ajax_profile_1');
-			
+
 			// 检查
 			if (!isset ($userinfo)) {
 				exit (json_encode (array ('code' => -9999, 'msg' => '参数为空')));
@@ -96,7 +96,7 @@
 				user_logout ($logininfo['uss']); // 因为更改了密码，所以需要重新登录
 			}
 			user_setemail ($userinfo['uid'], $_POST['email']); // 邮箱
-			
+
 	    	if ($_POST['avatar_type'] == 'Gravatar') { // 头像
 	    		$avatar_url = system_getgravatar ($userinfo['email']);
 	    	} else {
@@ -109,7 +109,7 @@
 	    case 'baiduid': // 百度账号管理页
 	    	// 钩子
 			hook_trigger ('ajax_baiduid_1');
-			
+
 			// 检查
 			if (empty ($_POST['do']) || !isset ($userinfo)) {
 				exit (json_encode (array ('code' => -9999, 'msg' => '参数为空')));
@@ -155,7 +155,7 @@
 	    case 'admin-set': // 站点管理页
 	    	// 钩子
 			hook_trigger ('ajax_admin-set_1');
-			
+
 			// 检查
 			if (!isset ($userinfo)) {
 				exit (json_encode (array ('code' => -9999, 'msg' => '参数为空')));
@@ -181,7 +181,7 @@
 	    case 'admin-plugins': // 插件管理页
 	    	// 钩子
 			hook_trigger ('ajax_admin-plugins_1');
-			
+
 			// 检查
 			if (empty ($_POST['do']) || !isset ($userinfo)) {
 				exit (json_encode (array ('code' => -9999, 'msg' => '参数为空')));
@@ -216,7 +216,7 @@
 	    case 'admin-theme': // 插件管理页
 	    	// 钩子
 			hook_trigger ('ajax_admin-theme_1');
-			
+
 			// 检查
 			if (!isset ($userinfo)) {
 				exit (json_encode (array ('code' => -9999, 'msg' => '参数为空')));
@@ -228,16 +228,46 @@
 
 			// 跳出
 			break;
+        case 'admin-updata': // 更新页
+        	// 钩子
+			hook_trigger ('ajax_admin-updata_1');
+
+            // 检查
+			if (!isset ($userinfo)) {
+				exit (json_encode (array ('code' => -9999, 'msg' => '参数为空')));
+			}
+			if ($userinfo['gid'] != 1) {
+				header ('Location: ./index.php?mod=login');
+				exit ();
+			}
+
+            // 判断操作类型并执行
+			$do = $_POST['do'];
+			if ($do == 'diff') {
+				exit (json_encode (array ('code' => 0, 'filelist' => system_scandiff ())));
+			} else if ($do == 'download') {
+				// 检查
+				if (empty ($_POST['file'])) {
+					exit (json_encode (array ('code' => -9999, 'msg' => '参数为空')));
+				}
+
+				// 下载
+				mkdir_recu (dirname ($_POST['file'])); // 创建目录结构
+				file_put_contents ($_POST['file'], file_get_contents (API_URL . '/updata/' . $_POST['file']));
+
+				// 返回
+				exit (json_encode (array ('code' => 0)));
+			}
+
+            // 跳出
+            break;
 		case 'api_verify': // API验证
 			// 显示签名
-			exit (auth_getsign (auth_getskey ()));
-
-			// 跳出
-			break;
+			exit (isset ($siteinfo['api']['skey']));
 		case 'showtb': // 贴吧列表页
 	    	// 钩子
 			hook_trigger ('ajax_showtb_1');
-			
+
 			// 检查
 			if (empty ($_POST['do']) || !isset ($userinfo)) {
 				exit (json_encode (array ('code' => -9999, 'msg' => '参数为空')));
@@ -255,29 +285,24 @@
 				sign_deleteall ($userinfo['uid'], $_POST['bid']);
 
 				// 刷新
-				$refid = baiduid_getinfo ($userinfo['uid'], $_POST['bid']);
-				if (is_array ($refid)) {
-					$tiebalist = tieba_getlike ($refid[0]['bduss']);
-					if (is_array ($tiebalist)) {
-						foreach ($tiebalist as $tiebalist_d) {
-							sign_add ($userinfo['uid'], $_POST['bid'], $tiebalist_d['name'], $tiebalist_d['id']);
-						}
-					}
-				}
-			} else if ($do == 'delete') {
-				// 检查
-				if (empty ($_POST['bid'])) {
-					exit (json_encode (array ('code' => -9999, 'msg' => '参数为空')));
-				}
-
-				// 删除
-				$ret = baiduid_delete ($userinfo['uid'], $_POST['bid']);
-				if ($ret == 0) {
-					exit (json_encode (array ('code' => 0)));
+				sign_reftieba ($userinfo['uid'], $_POST['bid']);
+			} else if ($do == 'refall') {
+				foreach ($baiduidinfo as $baiduidinfo_d) {
+					sign_deleteall ($baiduidinfo_d['uid'], $baiduidinfo_d['bid']);
+					sign_reftieba ($baiduidinfo_d['uid'], $baiduidinfo_d['bid']);
 				}
 			}
 
 			// 返回
 			exit (json_encode (array ('code' => 0)));
+	}
+
+	function mkdir_recu ($path) {
+		$cpath = SYSTEM_ROOT . '/' . $path;
+		if (is_dir ($cpath)) {
+			return;
+		}
+		mkdir_recu (dirname ($path));
+		mkdir ($cpath);
 	}
 ?>

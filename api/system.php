@@ -26,6 +26,45 @@
 		return $re;
 	}
 
+	function system_scandiff ($flist = array (), $d = '') // 扫描差异文件
+	{
+		// 初始化变量
+		$ret = array ();
+
+		// 获取文件列表
+		if (empty ($flist)) {
+			$data = array (
+				'skey' => auth_getskey ()
+			);
+			$header = array (
+		    	'tbsignversion' => system_getnotice ()
+		    );
+			$flist = json_decode (system_fetch (API_URL . '/index.php?mod=updata', $data, NULL, $header), true);
+		}
+
+		// 对比文件
+		if ($d != '' && ($d[strlen ($d) - 1]) != '/') {
+			$d .= '/';
+		}
+
+		if (!empty ($flist)) {
+			foreach ($flist as $flist_n => $flist_d) {
+				if (is_array ($flist_d)) {
+					$ret = array_merge ($ret, system_scandiff ($flist_d, $d . $flist_n));
+				} else {
+					if (!is_file ($d . $flist_n) || $flist_d != md5_file ($d . $flist_n)) {
+						$ret[] = $d . $flist_n;
+					}
+				}
+			}
+		}
+
+    	// 返回
+    	return $ret;
+	}
+
+	//function system
+
 	function system_getroot () // 获取云签目录
 	{
 		return dirname (__DIR__);
@@ -47,7 +86,11 @@
 	{
 		return option_getvalue ('system_notice');
 	}
-
+	function system_getversion () // 获取版本
+	{
+		return option_getvalue ('system_version');
+	}
+	
 	function system_seturl ($url) // 设置云签URL
 	{
 		return option_update ('system_url', $url);

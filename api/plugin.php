@@ -32,7 +32,7 @@
     	if (class_exists ($classname)) {
     		// 调用插件事件
     		if (method_exists ($classname, 'activate')) {
-    			$classname::activate ();
+    			$classname::activate ($pcn);
     		}
 
 	    	// 保存数据库信息
@@ -63,7 +63,7 @@
 	    	if (class_exists ($classname)) {
 	    		// 调用插件事件
 	    		if (method_exists ($classname, 'deactivate')) {
-	    			$classname::deactivate ();
+	    			$classname::deactivate ($pcn);
 	    		}
 		    }
 		}
@@ -86,7 +86,7 @@
 
 				// 调用插件事件
 				if (method_exists ($plist_d['class'], 'render')) {
-					$plist_d['class']::render ();
+					$plist_d['class']::render ($plugin_cuplugin);
 				}
 	    	}
 	    }
@@ -186,7 +186,7 @@
         }
 
         // 最后处理并返回
-        if (!isset ($pinfo_f['Class']) || !isset ($pinfo_f['PluginName']) || !isset ($pinfo_f['Author']) || !isset ($pinfo_f['Version']) || !isset ($pinfo_f['For'])) {
+        if (!isset ($pinfo_f['Class']) || !isset ($pinfo_f['PluginName']) || !isset ($pinfo_f['Description']) || !isset ($pinfo_f['Author']) || !isset ($pinfo_f['Version']) || !isset ($pinfo_f['For'])) {
         	return '';
         } else {
         	return $pinfo_f;

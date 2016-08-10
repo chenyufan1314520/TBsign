@@ -95,6 +95,7 @@
     define ('DBPASS', '{$_POST['dbpass']}');
     define ('DBPREFIX', '{$_POST['dbprefix']}');
     define ('DBTYPE', 'mysql');
+    define ('DBPERSISTENT', false);
 ");
                 
                 // 跳转

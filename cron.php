@@ -1,6 +1,6 @@
 <?php
     // 检查是否已安装
-    if (!is_file ('./config.php')) {
+    if (!is_file (__DIR__ . '/config.php')) {
         exit ();
     }
 

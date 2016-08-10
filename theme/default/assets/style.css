@@ -163,7 +163,6 @@ select {
     color: #000000!important;
 }
 
-
 .refurbish {
     border: none;
     position: fixed;
@@ -182,4 +181,20 @@ select {
     padding-top: 14px;
     padding-bottom: 14px;
     width: 56px;
+}
+
+#progress {
+    margin: 0 auto;
+    width: 200px;
+    height: 200px;
+    position: relative;
+}
+
+.widget-user-username>a , .widget-user-desc>a {
+    color:#FFF;
+}
+
+.gn {
+    top: 6px!important;
+    background: transparent!important;
 }

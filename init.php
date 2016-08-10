@@ -28,7 +28,10 @@
 		'username' => DBUSER,
 		'password' => DBPASS,
 		'charset' => 'utf8',
-		'prefix' => DBPREFIX
+		'prefix' => DBPREFIX,
+		'option' => array (
+			PDO::ATTR_PERSISTENT => DBPERSISTENT
+		)
 	));
 	
 	if (defined ('INFO')) {

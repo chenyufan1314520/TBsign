@@ -127,6 +127,12 @@
 									<td>Code</td>
 								</tr>
 								<?php
+									// 调试
+									/*
+									print_r ($exception->getTrace ());
+									exit ();
+									*/
+									
 									// 判断是否是插件引起的错误，是的话强制禁用
 									if (isset ($GLOBALS['plugin_cuplugin'])) {
 										plugin_deactivate ($GLOBALS['plugin_cuplugin'], true);

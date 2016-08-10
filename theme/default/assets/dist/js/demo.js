@@ -12,7 +12,7 @@
    * List of all the available skins
    *
    * @type Array
-   
+   */
   var my_skins = [
     "skin-blue",
     "skin-black",
@@ -211,7 +211,7 @@
   $("#control-sidebar-home-tab").after(tab_pane);
 
   setup();
-  */
+
   /**
    * Toggles layout classes
    *

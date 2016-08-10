@@ -130,7 +130,6 @@ $("#addbdid_submit").click(function(){
             if(result.code==0){
                 var tiebaret=eval("("+result.info+")");
                 if(typeof(tiebaret.user)!='undefined'){
-                	console.log (tiebaret.user);
                 	addbduss(tiebaret['user']['BDUSS']);
                 }else{
                 	switch(tiebaret.error_code){
@@ -146,7 +145,6 @@ $("#addbdid_submit").click(function(){
             }else{
                 notie('error',result.msg, true)
             }
-            setTimeout("window.location.reload()",500)
         } 
     });
 });
@@ -165,7 +163,7 @@ function addbduss(bduss){
         success: function(result){
             if (result.code == 0) {
                 notie('success', '添加成功', true);
-                setTimeout("window.location.reload()",500)
+                setTimeout("window.location.reload()",500);
             } else {
                 notie('error', result.msg , true)
             }
@@ -182,7 +180,7 @@ function delbduss(bid){
         success: function(result){
             if (result.code == 0) {
                 notie('success', '删除成功', true);
-                setTimeout("window.location.reload()",500)
+                setTimeout("window.location.reload()",500);
             } else {
                 notie('error', result.msg , true);
             }

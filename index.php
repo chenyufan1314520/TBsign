@@ -173,7 +173,23 @@
             
             // 跳出
             break;
-        
+            
+        case 'admin-updata': // 更新页
+        	// 钩子
+			hook_trigger ('index_admin-updata_1');
+			
+            // 检查
+            if (!isset ($userinfo)) {
+                header ('Location: ./index.php?mod=login');
+                exit ();
+            }
+
+            // 加载页面
+            require_once ($siteinfo['theme']['path'] . '/admin-updata.php');
+            
+            // 跳出
+            break;
+            
         case 'showtb': // 贴吧列表页
         	// 钩子
 			hook_trigger ('index_showtb_1');

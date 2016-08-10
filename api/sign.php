@@ -27,7 +27,30 @@
 		);
 		$GLOBALS['db']->delete ('tieba', $where);
     }
-
+	
+	function sign_reftieba ($uid, $bid) // 刷新贴吧
+	{
+		// 事务
+		$GLOBALS['db']->pdo->beginTransaction();
+		
+		// 删除
+		sign_deleteall ($uid, $bid);
+		
+		// 添加
+		$refid = baiduid_getinfo ($uid, $bid);
+		if (is_array ($refid)) {
+			$tiebalist = tieba_getlike ($refid[0]['bduss']);
+			if (is_array ($tiebalist)) {
+				foreach ($tiebalist as $tiebalist_d) {
+					sign_add ($uid, $bid, $tiebalist_d['name'], $tiebalist_d['id']);
+				}
+			}
+		}
+		
+		// 事务
+		$GLOBALS['db']->pdo->commit();
+	}
+	
     function sign_deleteall ($uid, $bid) // 删除全部贴吧
     {
 		$where = array (
@@ -39,13 +62,17 @@
 		$GLOBALS['db']->delete ('tieba', $where);
     }
 
-    function sign_getinfo ($uid, $bid, $kid, $limit = 0, $count = false, $time1 = 0, $time2 = 0, $state = 0) // 获取某贴吧信息
+    function sign_getinfo ($uid, $bid, $kid, $limit = 0, $count = false, $time1 = 0, $time2 = 0, $state = 0, $not = false) // 获取某贴吧信息
     {
     	// 初始化变量
     	$uid == 0 ? : $where['AND']['uid'] = $uid;
         $bid == 0 ? : $where['AND']['bid'] = $bid;
         $kid == 0 ? : $where['AND']['kid'] = $kid;
-        $state == 0 ? : $where['AND']['state'] = $state;
+        if ($not == false) {
+        	$state == 0 ? : $where['AND']['state'] = $state;
+        } else {
+        	$state == 0 ? : $where['AND']['state[!]'] = $state;
+        }
 
         // 查询
 		if ($limit != 0) {

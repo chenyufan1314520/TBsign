@@ -39,7 +39,7 @@
 				                                    
 				                                    <div class="col-sm-6">
 				                                        <div class="description-block">
-				                                            <h5 class="description-header"><?php echo $cronlist_d['url'] ?></h5>
+				                                            <h5 class="description-header"><?php echo basename ($cronlist_d['url']) ?></h5>
 				                                            <span class="description-text">文件名</span>
 				                                        </div>
 				                                    </div>

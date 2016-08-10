@@ -115,6 +115,7 @@
                 success: function(result){
                     if (result.code == 0) {
                         notie('success', '删除成功', true);
+                        setTimeout("window.location.reload()",500)
                     } else {
                         notie('error', result.msg , true);
                     }
@@ -129,6 +130,7 @@
                 success: function(result){
                     if (result.code == 0) {
                         notie('success', '删除成功', true);
+                        setTimeout("window.location.reload()",500)
                     } else {
                         notie('error', result.msg , true);
                     }
@@ -143,6 +145,7 @@
                 success: function(result){
                     if (result.code == 0) {
                         notie('success', '修改成功', true);
+                        setTimeout("window.location.reload()",500)
                     } else {
                         notie('error', result.msg , true);
                     }
