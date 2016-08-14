@@ -1,0 +1,6 @@
+@media (min-width: 767px) {
+    .notifyjs-corner {
+        top: 50px!important;
+        right: 100px!important;
+    }
+}
