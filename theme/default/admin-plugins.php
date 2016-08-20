@@ -14,7 +14,7 @@
                     $plist = plugin_getlist ();
                     foreach ($plist as $plist_d) {
                         $pinfo_f = plugin_getinfo_f ($plist_d);
-                        if (!is_array ($pinfo_f)) continue;
+                        if (empty ($pinfo_f)) continue;
                         ?>
 		                    <div class="col-md-4">
 		                        <div class="box box-widget widget-user">

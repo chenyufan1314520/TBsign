@@ -24,7 +24,7 @@
                                 <!-- 已绑定的账户 -->
                                 <div class="tab-pane active" id="adminid">
                                     <?php
-                                    	if (is_array ($baiduidinfo)) {
+                                    	if (!empty ($baiduidinfo)) {
 	                                        foreach ($baiduidinfo as $baiduidlist_d) {
 	                                            ?>
 	                                                <div class="box box-widget widget-user bid">

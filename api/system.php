@@ -1,12 +1,12 @@
 <?php if (!defined ('SYSTEM_ROOT')) exit (); ?>
 <?php
 	// 函数
-    function system_fetch ($url, $postdata = null, $cookie = null, $header = array (), $convert = false) // 访问网页（半原创）
+	function system_fetch ($url, $postdata = null, $cookie = null, $header = array (), $convert = false) // 访问网页（半原创）
 	{
 		$ch = curl_init ();
 		curl_setopt ($ch, CURLOPT_URL, $url);
 		if (!is_null ($postdata)) {
-			curl_setopt ($ch, CURLOPT_POSTFIELDS, $postdata);
+			curl_setopt ($ch, CURLOPT_POSTFIELDS, http_build_query ($postdata));
 		}
 		if (!is_null ($cookie)) {
 			curl_setopt ($ch, CURLOPT_COOKIE, $cookie);
@@ -15,8 +15,8 @@
 			curl_setopt ($ch, CURLOPT_HTTPHEADER, $header);
 		}
 		curl_setopt ($ch, CURLOPT_SSL_VERIFYPEER, false);
-		curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
-		curl_setopt ($ch, CURLOPT_HEADER, 0);
+		curl_setopt ($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt ($ch, CURLOPT_HEADER, false);
 		curl_setopt ($ch, CURLOPT_TIMEOUT, 20);
 		$re = curl_exec ($ch);
 		curl_close ($ch);
@@ -37,8 +37,8 @@
 				'skey' => auth_getskey ()
 			);
 			$header = array (
-		    	'tbsignversion' => system_getnotice ()
-		    );
+				'tbsignversion' => system_getnotice ()
+			);
 			$flist = json_decode (system_fetch (API_URL . '/index.php?mod=updata', $data, NULL, $header), true);
 		}
 
@@ -59,11 +59,9 @@
 			}
 		}
 
-    	// 返回
-    	return $ret;
+		// 返回
+		return $ret;
 	}
-
-	//function system
 
 	function system_getroot () // 获取云签目录
 	{
@@ -90,7 +88,7 @@
 	{
 		return option_getvalue ('system_version');
 	}
-	
+
 	function system_seturl ($url) // 设置云签URL
 	{
 		return option_update ('system_url', $url);

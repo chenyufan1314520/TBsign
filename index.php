@@ -16,7 +16,7 @@
     switch ($mod) {
         case 'index': // 首页
         	// 钩子
-			hook_trigger ('index_index_1');
+            hook_trigger ('index_index_1');
 			
             // 检查
             if (!isset ($userinfo)) {

@@ -16,7 +16,7 @@
             <div class="col-xs-12">
                 <?php
             	    $ztime = strtotime (date ('Y-m-d'));
-            	    if (is_array ($baiduidinfo)) {
+            	    if (!empty ($baiduidinfo)) {
     	            	foreach ($baiduidinfo as $baiduidlist_d) {
     						?>
     				            <div class="box">
@@ -40,7 +40,7 @@
     				                        <tbody>
     				                        	<?php
     				                        		$tiebalist = sign_getinfo ($userinfo['uid'], $baiduidlist_d['bid'], 0);
-    				            					if (is_array ($tiebalist)) {
+    				            					if (!empty ($tiebalist)) {
     				            						foreach ($tiebalist as $tiebalist_d) {
     				            							?>
     								                            <tr>

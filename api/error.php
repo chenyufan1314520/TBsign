@@ -127,12 +127,6 @@
 									<td>Code</td>
 								</tr>
 								<?php
-									// 调试
-									/*
-									print_r ($exception->getTrace ());
-									exit ();
-									*/
-									
 									// 判断是否是插件引起的错误，是的话强制禁用
 									if (isset ($GLOBALS['plugin_cuplugin'])) {
 										plugin_deactivate ($GLOBALS['plugin_cuplugin'], true);
@@ -152,17 +146,18 @@
 														}
 														
 														if (!empty ($ep_d['function'])) {
-															echo $ep_d['function'];
+															echo $ep_d['function'] . ' ';
 															echo '(';
 															
-															if (isset ($ep_d['args']) && count ($ep_d['args']) != 0) {
+															if (!empty ($ep_d['args'])) {
 																$args_tmp = $ep_d['args'];
-																if (is_array ($args_tmp[0])) {
+																if (is_array ($args_tmp[0]) && count ($args_tmp[0]) != 0) {
 																	$args_tmp = $args_tmp[0];
 																}
-
-																if (defined ('DBPASS')) {
-																	foreach ($args_tmp as &$arg_tmp) { // 防止数据库连接错误之后，数据库信息被爆出来
+																
+																
+																foreach ($args_tmp as &$arg_tmp) {
+																	if (defined ('DBPASS')) { // 防止数据库连接错误之后，数据库信息被爆出来
 																		switch ($arg_tmp) {
 																			case DBHOST:
 																				$arg_tmp = '%DBHOST%';
@@ -184,11 +179,13 @@
 																				break;
 																		}
 																	}
+																	
+																	if (is_array ($arg_tmp)) {
+																		$arg_tmp = var_export ($arg_tmp, true);
+																	}
 																}
-
-																if (count ($args_tmp) != 0) {
-																	echo implode (', ', $args_tmp);
-																}
+																
+																echo implode (', ', $args_tmp);
 															}
 															
 															echo ')';

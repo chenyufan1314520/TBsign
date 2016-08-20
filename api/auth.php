@@ -8,10 +8,10 @@
 			'url' => system_geturl ()
 		);
 		$header = array (
-	    	'tbsignversion' => system_getnotice ()
-	    );
+			'tbsignversion' => system_getnotice ()
+		);
 		$ret = json_decode (system_fetch ($url, $data, NULL, $header), true);
-		
+
 		// 分析
 		if ($ret['code'] == 0) {
 			option_update ('api_skey', $ret['skey']);

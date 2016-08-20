@@ -12,7 +12,7 @@
                 <div class="box-body table-responsive">
 					<?php
                 		$cronlist = cron_getinfo (0);
-                		if (is_array ($cronlist)) {
+                		if (!empty ($cronlist)) {
 	                		foreach ($cronlist as $cronlist_d) {
 	                			?> 
 				                    <div class="col-md-4">
