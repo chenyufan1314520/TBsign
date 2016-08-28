@@ -13,17 +13,17 @@
     
       <ul class="sidebar-menu">
         <li class="header">菜单</li>
-        <li class="treeview <?php if (@$_GET['mod'] == 'index') echo 'active'; ?>">
+        <li class="treeview <?php if ($_GET['mod'] == 'index') echo 'active'; ?>">
             <a href="./index.php">
                 <i class="fa fa-home"></i> <span> 首页</span>
             </a>
         </li>
-        <li class="treeview <?php if (@$_GET['mod'] == 'baiduid') echo 'active'; ?>">
+        <li class="treeview <?php if ($_GET['mod'] == 'baiduid') echo 'active'; ?>">
             <a href="./index.php?mod=baiduid">
                 <i class="fa fa-link"></i> <span> 账号管理</span>
             </a>
         </li>
-        <li class="treeview <?php if (@$_GET['mod'] == 'showtb') echo 'active'; ?>">
+        <li class="treeview <?php if ($_GET['mod'] == 'showtb') echo 'active'; ?>">
             <a href="./index.php?mod=showtb">
                 <i class="fa fa-calendar-check-o"></i> <span> 贴吧签到日记</span>
             </a>
@@ -72,7 +72,7 @@
                     	// 钩子
 						hook_trigger ('sidebar_admin_1');
                     ?>
-                <?
+                <?php
             }
         ?>
       </ul>

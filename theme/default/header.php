@@ -41,23 +41,23 @@
                         <img src="<?php echo $userinfo['avatar'] ?>" class="user-image" alt="User Image">
                         <span class="hidden-xs"><?php echo $userinfo['name']; ?></span>
                     </a>
-                        <ul class="dropdown-menu">
-                            <li class="user-header">
-                                <img src="https://gravatar.iwch.me/avatar/<?php echo md5 (strtolower ($userinfo['email'])); ?>?s=200" class="img-circle" alt="User Image">
-                                <p><?php echo $userinfo['name']; ?> 
-                                    <small style="margin-top:3px;"><?php echo $userinfo['email']; ?></small> 
-                                    <small>加入时间：<?php echo date ('Y-m-d', $userinfo['time']); ?> </small>
-                                </p>
-                            </li>
-                            <li class="user-footer">
-                                <div class="pull-left">
-                                    <a href="#" data-toggle="control-sidebar"class="btn btn-default btn-flat">个人设置</a>
-                                </div>
-                                <div class="pull-right">
-                                    <a href="javascript:if(confirm('将要注销您的账号。是否继续？')){ $.cookie('uss', null);window.location.href='./index.php'; }" class="btn btn-default btn-flat">注销</a>
-                                </div>
-                            </li>
-                        </ul>
+                    <ul class="dropdown-menu">
+                        <li class="user-header">
+                            <img src="https://gravatar.iwch.me/avatar/<?php echo md5 (strtolower ($userinfo['email'])); ?>?s=200" class="img-circle" alt="User Image">
+                            <p><?php echo $userinfo['name']; ?> 
+                                <small style="margin-top:3px;"><?php echo $userinfo['email']; ?></small> 
+                                <small>加入时间：<?php echo date ('Y-m-d', $userinfo['time']); ?> </small>
+                            </p>
+                        </li>
+                        <li class="user-footer">
+                            <div class="pull-left">
+                                <a href="#" data-toggle="control-sidebar"class="btn btn-default btn-flat">个人设置</a>
+                            </div>
+                            <div class="pull-right">
+                                <a href="javascript:if(confirm('将要注销您的账号。是否继续？')){ $.cookie('uss', null);window.location.href='./index.php'; }" class="btn btn-default btn-flat">注销</a>
+                            </div>
+                        </li>
+                    </ul>
                 </li>
                 <li>
             <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
