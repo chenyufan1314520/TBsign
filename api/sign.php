@@ -2,6 +2,9 @@
 <?php
 	function sign_add ($uid, $bid, $kw, $fid) // 添加一个贴吧
 	{
+		// 钩子
+        hook_trigger ('sign_add_1');
+        
 		// 插入数据到数据库
 		$data = array (
 			'kid' => NULL,
@@ -19,6 +22,10 @@
 
 	function sign_delete ($bid, $kid) // 删除一个贴吧
 	{
+		// 钩子
+        hook_trigger ('sign_delete_1');
+        
+        // 删除
 		$where = array (
 			'AND' => array (
 				'kid' => $kid,
@@ -30,6 +37,9 @@
 
 	function sign_reftieba ($uid, $bid) // 刷新贴吧
 	{
+		// 钩子
+        hook_trigger ('sign_reftieba_1');
+        
 		// 事务
 		$GLOBALS['db']->pdo->beginTransaction();
 
@@ -53,6 +63,10 @@
 
 	function sign_deleteall ($uid, $bid) // 删除全部贴吧
 	{
+		// 钩子
+        hook_trigger ('sign_deleteall_1');
+        
+        // 删除
 		$where = array (
 			'AND' => array (
 				'bid' => $bid,
@@ -64,6 +78,9 @@
 
 	function sign_getinfo ($uid, $bid, $kid, $limit = 0, $count = false, $time1 = 0, $time2 = 0, $state = 0, $not = false) // 获取某贴吧信息
 	{
+		// 钩子
+        hook_trigger ('sign_getinfo_1');
+        
 		// 初始化变量
 		$uid == 0 ? : $where['AND']['uid'] = $uid;
 		$bid == 0 ? : $where['AND']['bid'] = $bid;
@@ -91,6 +108,10 @@
 
 	function sign_setstate ($kid, $newstate) // 更改状态
 	{
+		// 钩子
+        hook_trigger ('sign_setstate_1');
+        
+        // 更改
 		$data = array (
 			'state' => $newstate
 		);
@@ -102,6 +123,10 @@
 
 	function sign_setlasttime ($kid, $newtime) // 更改上次签到时间
 	{
+		// 钩子
+        hook_trigger ('sign_setlasttime_1');
+        
+        // 更改
 		$data = array (
 			'lasttime' => $newtime
 		);

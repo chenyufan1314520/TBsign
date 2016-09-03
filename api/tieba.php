@@ -1,6 +1,7 @@
 <?php if (!defined ('SYSTEM_ROOT')) exit (); ?>
 <?php
-	function tieba_getsign ($data) { // 签名数据
+	function tieba_getsign ($data) // 签名数据
+	{
 		// 初始化变量
 		$ret = '';
 

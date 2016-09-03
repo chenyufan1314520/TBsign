@@ -2,6 +2,9 @@
 <?php
 	function user_register ($name, $email, $password) // 注册账号
 	{
+		// 钩子
+        hook_trigger ('user_register_1');
+        
 		// 判断是否已注册过了
 		if (user_search ($email) != -1) { // 邮箱
 			return -1;
@@ -27,6 +30,9 @@
 
 	function user_delete ($uid) // 删除账号
 	{
+		// 钩子
+        hook_trigger ('user_delete_1');
+        
 		// 删除表
 		$where = array (
 			'uid' => $uid
@@ -42,6 +48,9 @@
 
 	function user_login ($uid, $password) // 登录账号
 	{
+		// 钩子
+        hook_trigger ('user_login_1');
+        
 		// 验证信息
 		$userinfo = user_getinfo ($uid);
 		if (!is_array ($userinfo)) { // 账号不正确
@@ -70,6 +79,10 @@
 
 	function user_logout ($uss) // 登出
 	{
+		// 钩子
+        hook_trigger ('user_logout_1');
+        
+        // 删掉相关记录
 		$where = array (
 			'uss' => $uss
 		);
@@ -78,6 +91,10 @@
 
 	function user_search ($user) // 搜索帐号
 	{
+		// 钩子
+        hook_trigger ('user_search_1');
+        
+        // 搜索
 		$where = array (
 			'OR' => array (
 				'email' => $user,
@@ -92,6 +109,9 @@
 
 	function user_getinfo ($uid, $limit = 0, $count = false) // 获取帐号信息
 	{
+		// 钩子
+        hook_trigger ('user_getinfo_1');
+        
 		// 初始化变量
 		$where = array ();
 		$uid == 0 ? : $where['uid'] = $uid;
@@ -109,6 +129,10 @@
 
 	function user_loginsearch ($uss) // 搜索登录帐号
 	{
+		// 钩子
+        hook_trigger ('user_loginsearch_1');
+        
+        // 搜索
 		$where = array (
 			'uss' => $uss,
 			'LIMIT' => 1
@@ -120,6 +144,9 @@
 
 	function user_getlogininfo ($uid, $limit = 0, $count = false) // 获取帐号登录信息
 	{
+		// 钩子
+        hook_trigger ('user_getlogininfo_1');
+        
 		// 初始化变量
 		$uid == 0 ? : $where['uid'] = $uid;
 
@@ -136,6 +163,10 @@
 
 	function user_setgroup ($uid, $gid) // 设置某账号的用户组
 	{
+		// 钩子
+        hook_trigger ('user_setgroup_1');
+        
+        // 设置
 		$data = array (
 			'gid' => $gid
 		);
@@ -147,6 +178,10 @@
 
 	function user_setpassword ($uid, $password) // 设置某账号的密码
 	{
+		// 钩子
+        hook_trigger ('user_setpassword_1');
+        
+        // 设置
 		$data = array (
 			'password' => md5 (md5 (md5 ($password)))
 		);
@@ -158,6 +193,10 @@
 
 	function user_setemail ($uid, $email) // 设置某账号的邮箱
 	{
+		// 钩子
+        hook_trigger ('user_setemail_1');
+        
+        // 设置
 		$data = array (
 			'email' => $email
 		);
@@ -169,6 +208,10 @@
 
 	function user_setavatar ($uid, $avatarurl) // 设置某账号的头像
 	{
+		// 钩子
+        hook_trigger ('user_setavatar_1');
+        
+        // 设置
 		$data = array (
 			'avatar' => $avatarurl
 		);
@@ -180,6 +223,10 @@
 
 	function user_getgravatar ($email) // 通过email获取Gravatar头像
 	{
+		// 钩子
+        hook_trigger ('user_getgravatar_1');
+        
+        // 返回
 		return 'https://gravatar.iwch.me/avatar/' . md5 (strtolower ($email)) . '?s=200';
 	}
 ?>

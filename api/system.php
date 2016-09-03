@@ -3,6 +3,10 @@
 	// 函数
 	function system_fetch ($url, $postdata = null, $cookie = null, $header = array (), $convert = false) // 访问网页（半原创）
 	{
+		// 钩子
+        hook_trigger ('system_fetch_1');
+        
+        // 访问
 		$ch = curl_init ();
 		curl_setopt ($ch, CURLOPT_URL, $url);
 		if (!is_null ($postdata)) {
@@ -65,44 +69,84 @@
 
 	function system_getroot () // 获取云签目录
 	{
+		// 钩子
+        hook_trigger ('system_getroot_1');
+        
+        // 返回
 		return dirname (__DIR__);
 	}
 
 	function system_geturl () // 获取云签URL
 	{
+		// 钩子
+        hook_trigger ('system_geturl_1');
+        
+        // 返回
 		return option_getvalue ('system_url');
 	}
 	function system_getname () // 获取云签站点名
 	{
+		// 钩子
+        hook_trigger ('system_getname_1');
+        
+        // 返回
 		return option_getvalue ('system_name');
 	}
 	function system_getbeian () // 获取云签备案号
 	{
+		// 钩子
+        hook_trigger ('system_getbeian_1');
+        
+        // 返回
 		return option_getvalue ('system_beian');
 	}
 	function system_getnotice () // 获取公告
 	{
+		// 钩子
+        hook_trigger ('system_getnotice_1');
+        
+        // 返回
 		return option_getvalue ('system_notice');
 	}
 	function system_getversion () // 获取版本
 	{
+		// 钩子
+        hook_trigger ('system_getversion_1');
+        
+        // 返回
 		return option_getvalue ('system_version');
 	}
 
 	function system_seturl ($url) // 设置云签URL
 	{
+		// 钩子
+        hook_trigger ('system_seturl_1');
+        
+        // 返回
 		return option_update ('system_url', $url);
 	}
 	function system_setname ($name) // 设置云签站点名
 	{
+		// 钩子
+        hook_trigger ('system_setname_1');
+        
+        // 返回
 		return option_update ('system_name', $name);
 	}
 	function system_setbeian ($beian) // 设置云签备案号
 	{
+		// 钩子
+        hook_trigger ('system_setbeian_1');
+        
+        // 返回
 		return option_update ('system_beian', $beian);
 	}
 	function system_setnotice ($notice) // 设置公告
 	{
+		// 钩子
+        hook_trigger ('system_setnotice_1');
+        
+        // 返回
 		return option_update ('system_notice', $notice);
 	}
 ?>

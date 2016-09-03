@@ -2,6 +2,10 @@
 <?php
 	function group_add ($name) // 添加用户组
 	{
+		// 钩子
+        hook_trigger ('group_add_1');
+        
+        // 添加
 		$data = array (
 			'gid' => NULL,
 			'name' => $name
@@ -13,6 +17,10 @@
 
 	function group_delete ($gid) // 删除用户组
 	{
+		// 钩子
+        hook_trigger ('group_delete_1');
+        
+        // 删除
 		$where = array (
 			'gid' => $gid
 		);
@@ -21,6 +29,9 @@
 
 	function group_getinfo ($gid, $limit = 0, $count = false) // 获取用户组信息
 	{
+		// 钩子
+        hook_trigger ('group_getinfo_1');
+        
 		// 初始化变量
 		$where = array ();
 		$gid == 0 ? : $where['gid'] = $gid;

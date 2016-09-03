@@ -2,6 +2,9 @@
 <?php
 	function plugin_getlist () // 枚举插件列表
 	{
+		// 钩子
+        hook_trigger ('user_register_1');
+        
 		// 初始化变量
 		$plist = array ();
 
@@ -71,6 +74,9 @@
 
 	function plugin_runall () // 加载所有插件
 	{
+		// 钩子
+        hook_trigger ('plugin_init_1');
+        
 		// 初始化变量
 		global $plugin_cuplugin;
 
@@ -97,6 +103,10 @@
 
 	function plugin_getstate ($pcn) // 检测某插件是否启用
 	{
+		// 钩子
+        hook_trigger ('plugin_getstate_1');
+        
+        // 查询
 		$where = array (
 			'pcn' => $pcn
 		);
@@ -114,6 +124,9 @@
 
 	function plugin_getinfo ($pcn, $limit = 0, $count = false) // 获取某插件信息
 	{
+		// 钩子
+        hook_trigger ('plugin_getinfo_1');
+        
 		// 初始化变量
 		$pcn = empty ($pcn) ? '%' : $pcn;
 
@@ -133,11 +146,18 @@
 
 	function plugin_getroot ($pcn) // 获取某插件根目录
 	{
+		// 钩子
+        hook_trigger ('plugin_getroot_1');
+        
+        // 返回
 		return SYSTEM_ROOT . '/plugins/' . $pcn;
 	}
 
 	function plugin_getinfo_f ($pcn) // 获取某插件信息（文件）
 	{
+		// 钩子
+        hook_trigger ('plugin_getinfo_f_1');
+        
 		// 检查是否合法
 		if (!is_file ($pfile = plugin_getroot ($pcn) . '/Plugin.php')) {
 			return '';

@@ -2,6 +2,9 @@
 <?php
 	function baiduid_add ($uid, $bduss) // 添加一条百度ID
 	{
+		// 钩子
+        hook_trigger ('baiduid_add_1');
+        
 		// 判断是否已存在
 		if (baiduid_search ($uid, $bduss) != -1) {
 			return -1;
@@ -28,6 +31,9 @@
 
 	function baiduid_delete ($uid, $bid) // 删除一条百度ID
 	{
+		// 钩子
+        hook_trigger ('baiduid_delete_1');
+        
 		// 删除表
 		$where = array (
 			'AND' => array (
@@ -43,6 +49,9 @@
 
 	function baiduid_getinfo ($uid, $bid, $limit = 0, $count = false) // 获取某百度ID
 	{
+		// 钩子
+        hook_trigger ('baiduid_getinfo_1');
+        
 		// 初始化变量
 		$where = array ();
 		$uid == 0 ? : $where['AND']['uid'] = $uid;
@@ -61,6 +70,10 @@
 
 	function baiduid_search ($uid, $bduss) // 搜索百度ID
 	{
+		// 钩子
+        hook_trigger ('baiduid_search_1');
+        
+        // 搜索
 		$where = array (
 			'AND' => array (
 				'uid' => $uid,
