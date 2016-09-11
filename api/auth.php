@@ -8,16 +8,22 @@
 			'url' => system_geturl ()
 		);
 		$header = array (
-			'tbsignversion' => system_getnotice ()
+			'version' => system_getversion ()
 		);
 		$ret = json_decode (system_fetch ($url, $data, NULL, $header), true);
 
 		// 分析
 		if ($ret['code'] == 0) {
+			option_update ('api_sid', $ret['sid']);
 			option_update ('api_skey', $ret['skey']);
 		} else {
 			die ('请求skey失败，原因：' . $ret['msg']);
 		}
+	}
+
+	function auth_getsid ()
+	{
+		return option_getvalue ('api_sid');
 	}
 
 	function auth_getskey ()

@@ -21,12 +21,13 @@
 	{
 		$url = API_URL . '/index.php?mod=login';
 		$data = array (
+			'sid' => auth_getsid (),
 			'skey' => auth_getskey (),
 			'user' => $user,
 			'password' => $password
 		);
 		$header = array (
-			'tbsignversion' => system_getnotice ()
+			'version' => system_getversion ()
 		);
 		if (!empty ($vcode)) {
 			$data['vcode'] = $vcode;

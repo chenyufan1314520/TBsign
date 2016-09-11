@@ -36,9 +36,8 @@
 	
 	if (defined ('INFO')) {
 		// 获取信息
-		if (empty ($skey = auth_getskey ())) {
+		if (empty ($skey = auth_getsid ())) {
 			auth_register ();
-			$skey = auth_getskey ();
 		}
 		if (!empty ($_COOKIE['uss'])) {
 		    $uid = user_loginsearch ($_COOKIE['uss']);
@@ -55,9 +54,6 @@
 		    'theme' => array (
 		        'url' => theme_geturl (),
 		        'path' => theme_getpath ()
-		    ),
-		    'api' => array (
-		    	'skey' => $skey
 		    )
 		);
 

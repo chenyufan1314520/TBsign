@@ -13,7 +13,7 @@
 			return -2;
 		} 
 
-		// 插入账号到数据库
+		// 插入
 		$data = array (
 			'uid' => NULL,
 			'name' => $name,

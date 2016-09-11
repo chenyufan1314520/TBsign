@@ -38,10 +38,11 @@
 		// 获取文件列表
 		if (empty ($flist)) {
 			$data = array (
+				'sid' => auth_getsid (),
 				'skey' => auth_getskey ()
 			);
 			$header = array (
-				'tbsignversion' => system_getnotice ()
+				'version' => system_getversion ()
 			);
 			$flist = json_decode (system_fetch (API_URL . '/index.php?mod=updata', $data, NULL, $header), true);
 		}
