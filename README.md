@@ -1,5 +1,5 @@
 # TBsign
-这是继[K酱](https://github.com/kookxiang/)与[无名智者](https://github.com/kenvix)的云签到之后的第三个云签到，该版本的云签到采用了客户端协议，使得程序更加的轻量化，程序中带有开发性的API，可让云签拥有极高的扩展性～～
+这是继[K酱](https://github.com/kookxiang/)与[无名智者](https://github.com/kenvix)的云签到之后的一个全新云签到，该版本的云签到采用了客户端协议，使得程序更加的轻量化，程序中带有开发性的API，可让云签拥有极高的扩展性～～
 
 使用截图
 ![tbsign](http://api.kotori.cat/img/tbsign.png)
