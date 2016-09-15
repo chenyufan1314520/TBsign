@@ -205,5 +205,21 @@
             
             // 跳出
             break;
+            
+        case 'admin-cloud': // 贴吧列表页
+        	// 钩子
+			hook_trigger ('index_admin-cloud_1');
+			
+            // 检查
+            if (!isset ($userinfo)) {
+                header ('Location: ./index.php?mod=login');
+                exit ();
+            }
+
+            // 加载页面
+            require_once ($siteinfo['theme']['path'] . '/admin-cloud.php');
+            
+            // 跳出
+            break;
     }
 ?>

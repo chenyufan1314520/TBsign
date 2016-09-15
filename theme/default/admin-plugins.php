@@ -33,7 +33,13 @@
                                                 	} 
                                                 ?>
                                             </div>
-		                                    <div><button type="button" class="btn btn-info-alt btn-circle"><i class="fa fa-cog"></i></button></div>
+                                            <?php 
+                                                if (plugin_config_exists ($plist_d)) { 
+                                                    ?>
+		                                                <div><button type="button" class="btn btn-info-alt btn-circle"><i class="fa fa-cog"></i></button></div>
+                                                    <?php 
+                                                }
+                                            ?>
 		                                </div>
 		                                <h3 class="widget-user-username">
 	                            			<?php

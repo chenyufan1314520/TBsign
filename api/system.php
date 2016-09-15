@@ -10,7 +10,7 @@
 		$ch = curl_init ();
 		curl_setopt ($ch, CURLOPT_URL, $url);
 		if (!is_null ($postdata)) {
-			curl_setopt ($ch, CURLOPT_POSTFIELDS, http_build_query ($postdata));
+			curl_setopt ($ch, CURLOPT_POSTFIELDS, $postdata);
 		}
 		if (!is_null ($cookie)) {
 			curl_setopt ($ch, CURLOPT_COOKIE, $cookie);
@@ -27,6 +27,7 @@
 		if ($convert == true) {
 			$re = mb_convert_encoding ($re, 'UTF-8', 'GBK');
 		}
+		
 		return $re;
 	}
 

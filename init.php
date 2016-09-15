@@ -2,6 +2,7 @@
 	// 定义
 	define ('SYSTEM_ROOT', __DIR__);
 	define ('API_URL', 'https://api.tbsign.in');
+	define ('PANEL_URL', 'https://panel.tbsign.in');
 
 	// 引入
 	require_once 'api/error.php';

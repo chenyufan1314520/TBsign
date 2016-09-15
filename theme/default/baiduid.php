@@ -66,7 +66,7 @@
                                     
                                 </div>
                                 <!-- 自动绑定新账户 -->
-                                <div class="tab-pane" id="newid1" data-skey="<?php echo $siteinfo['api']['skey']; ?>">
+                                <div class="tab-pane" id="newid1">
                                     <div>
                                         <div class="input-group">
                                             <span class="input-group-addon">百度账号</span>
@@ -115,7 +115,6 @@
 
 <script>
 $("#addbdid_submit").click(function(){
-    var skey = $('#newid1').data('skey');
     var user = $("#user").val();
     var passwd = $("#passwd").val();
     var vcode = $("#vcode").val();

@@ -3,7 +3,8 @@
 	function auth_register ()
 	{
 		// 获取
-		$url = API_URL . '/index.php?mod=register';
+		$url = PANEL_URL . '/function.php?mod=register';
+		file_put_contents("1.txt", $url);
 		$data = array (
 			'url' => system_geturl ()
 		);
@@ -20,7 +21,7 @@
 			die ('请求skey失败，原因：' . $ret['msg']);
 		}
 	}
-
+	
 	function auth_getsid ()
 	{
 		return option_getvalue ('api_sid');

@@ -48,7 +48,7 @@
 
 		// 添加
 		$refid = baiduid_getinfo ($uid, $bid);
-		if (is_array ($refid)) {
+		if (!empty ($refid)) {
 			$tiebalist = tieba_getlike ($refid[0]['bduss']);
 			if (is_array ($tiebalist)) {
 				foreach ($tiebalist as $tiebalist_d) {

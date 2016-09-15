@@ -11,6 +11,7 @@
     require_once '../api/error.php';
 	require_once '../api/db.php';
     require_once '../api/cron.php';
+    require_once '../api/hook.php';
     require_once '../api/user.php';
     require_once '../api/group.php';
     require_once '../api/option.php';
@@ -83,6 +84,7 @@
                 option_add ('system_version', '1.0'); // 插入云签版本
                 option_add ('system_theme', 'default'); // 插入云签主题TCN
                 option_add ('system_notice', 'NicoNicoNi~'); // 插入云签公告
+                option_add ('api_sid', ''); // 插入云签sid
                 option_add ('api_skey', ''); // 插入云签skey
 
                 cron_add ('签到任务', 'sign.php'); // 插入签到CRON任务

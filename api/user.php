@@ -53,7 +53,7 @@
         
 		// 验证信息
 		$userinfo = user_getinfo ($uid);
-		if (!is_array ($userinfo)) { // 账号不正确
+		if (empty ($userinfo)) { // 账号不正确
 			return -1;
 		}
 		if (md5 (md5 (md5 ($password))) != $userinfo[0]['password']) { // 密码不正确

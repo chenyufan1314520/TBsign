@@ -68,7 +68,7 @@
 		$croninfo = cron_getinfo ($cid);
 
 		// 执行
-		if (is_array ($croninfo)) {
+		if (!empty ($croninfo)) {
 			if (is_file (SYSTEM_ROOT . '/' . $croninfo[0]['url']))
 			{
 				require SYSTEM_ROOT . '/' . $croninfo[0]['url'];

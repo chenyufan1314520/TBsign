@@ -262,8 +262,8 @@
             // 跳出
             break;
 		case 'api_verify': // API验证
-			// 显示签名
-			exit (isset ($siteinfo['api']['skey']));
+			// 显示
+			exit (auth_getsid ());
 		case 'showtb': // 贴吧列表页
 	    	// 钩子
 			hook_trigger ('ajax_showtb_1');

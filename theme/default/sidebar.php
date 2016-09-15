@@ -37,6 +37,11 @@
             if ($userinfo['gid'] == 1) {
                 ?>
                     <li class="header">管理员设置</li>
+                    <li class="treeview <?php if ($_GET['mod'] == 'admin-cloud') echo 'active'; ?>">
+                        <a href="./index.php?mod=admin-cloud">
+                            <i class="fa fa-cloud"></i> <span> 云平台</span>
+                        </a>
+                    </li>
                     <li class="treeview <?php if ($_GET['mod'] == 'admin-set') echo 'active'; ?>">
                         <a href="./index.php?mod=admin-set">
                             <i class="fa fa-wrench"></i> <span> 站点管理</span>

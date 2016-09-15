@@ -71,7 +71,24 @@
 			}
 		}
 	}
+	
+	function plugin_config_exists ($pcn) // 插件某方法是否存在
+	{
+		// 钩子
+        hook_trigger ('plugin_config_exists_1');
+        
+		// 获取插件信息
+		$pinfo = plugin_getinfo ($pcn);
+		if (empty ($pinfo)) {
+		    return false;
+		}
+		
+		$classname = $pinfo[0]['class'];
 
+		// 返回
+		return method_exists ($classname, 'config');
+	}
+	
 	function plugin_runall () // 加载所有插件
 	{
 		// 钩子
@@ -82,7 +99,7 @@
 
 		// 获取所有已启用的插件
 		$plist = plugin_getinfo ('');
-		if (is_array ($plist)) {
+		if (!empty ($plist)) {
 			foreach ($plist as $plist_d) {
 				// 记录
 				$plugin_cuplugin = $plist_d['pcn'];

@@ -6,14 +6,10 @@
     <section class="content">
         <div class="row">
             <div class="col-xs-12">
-                <div class="callout callout-info">
-                    <h4>授权信息</h4>
-                    <p>标识符 : <?php echo $siteinfo['api']['skey']; ?></p>
-                </div>
                 <div class="nav-tabs-custom">
                     <ul class="nav nav-tabs pull-right ui-sortable-handle">
                         <li class="active"><a href="#commonset" data-toggle="tab">基础设置</a></li>
-                        <li class=""><a href="#signset" data-toggle="tab">签到设置</a></li>
+                        <!--- <li class=""><a href="#signset" data-toggle="tab">签到设置</a></li> --->
                         <li class="pull-left header">站点管理</li>
                     </ul>
                     <div class="tab-content no-padding">

@@ -17,6 +17,9 @@
 			hook_register ('init_1', 'startt');
 			hook_register ('footer_2', 'endt');
 		}
+		public static function config () {
+			
+		}
 	}
 
 	function startt ()
