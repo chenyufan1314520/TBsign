@@ -9,7 +9,7 @@
 
     // 请求包含少部分API文件
     require_once '../api/error.php';
-	require_once '../api/db.php';
+    require_once '../api/db.php';
     require_once '../api/cron.php';
     require_once '../api/hook.php';
     require_once '../api/user.php';
@@ -51,16 +51,16 @@
                 require_once ('template/3.php');
             } else {
                 // 初始化变量
-                $siteurl = isset ($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on' ? 'https://' : 'http://' . $_SERVER['SERVER_NAME'] . dirname (dirname ($_SERVER['SCRIPT_NAME']));
+                $siteurl = $_POST['siteurl'];
                 $db = new medoo (array (
-					'database_type' => 'mysql',
-					'database_name' => $_POST['dbname'],
-					'server' => $_POST['dbhost'],
-					'username' => $_POST['dbuser'],
-					'password' => $_POST['dbpass'],
-					'charset' => 'utf8',
-					'prefix' => $_POST['dbprefix']
-				));
+                    'database_type' => 'mysql',
+                    'database_name' => $_POST['dbname'],
+                    'server' => $_POST['dbhost'],
+                    'username' => $_POST['dbuser'],
+                    'password' => $_POST['dbpass'],
+                    'charset' => 'utf8',
+                    'prefix' => $_POST['dbprefix']
+                ));
 
                 // 初始化数据库
                 $sql = file_get_contents ('./install.sql'); // 初始化数据库结构
@@ -90,7 +90,7 @@
                 cron_add ('签到任务', 'sign.php'); // 插入签到CRON任务
 
                 // 初始化配置文件
-                file_put_contents ('../config.php', "<?php
+                $configcon = "<?php
     define ('DBHOST', '{$_POST['dbhost']}');
     define ('DBNAME', '{$_POST['dbname']}');
     define ('DBUSER', '{$_POST['dbuser']}');
@@ -98,7 +98,12 @@
     define ('DBPREFIX', '{$_POST['dbprefix']}');
     define ('DBTYPE', 'mysql');
     define ('DBPERSISTENT', false);
-");
+?>";
+                if (is_writable ('../config.php')) {
+                    file_put_contents ('../config.php', $configcon);
+                } else {
+                    die ("似乎云签没有写入权限以写入配置文件，请在云签根目录创建 config.php，然后填入以下内容：<br><textarea rows=9 cols=35>$configcon</textarea>");
+                }
                 
                 // 跳转
                 header ('Location: ../index.php');

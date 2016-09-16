@@ -4,7 +4,7 @@
 	{
 		// 获取
 		$url = PANEL_URL . '/function.php?mod=register';
-		file_put_contents("1.txt", $url);
+		
 		$data = array (
 			'url' => system_geturl ()
 		);

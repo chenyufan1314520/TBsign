@@ -43,17 +43,18 @@
   <div class="content-wrapper">
     <div class="container">
       <section class="content">
-        <h2>开始安装: 功能检查</h2><br/>
+        <h2>开始安装: 功能检查</h2><br>
         <form action="./index.php?step=3" method="post">
-            <div class="input-group"><span class="input-group-addon">数据库地址</span><input type="text" class="form-control" name="dbhost" value="localhost" placeholder=""></div><br/>
-            <div class="input-group"><span class="input-group-addon">数据库用户名</span><input type="text" class="form-control" name="dbuser" value="root" placeholder=""></div><br/>
-            <div class="input-group"><span class="input-group-addon">数据库密码</span><input type="text" class="form-control" name="dbpass" placeholder=""></div><br/>
-            <div class="input-group"><span class="input-group-addon">数据库名称</span><input type="text" class="form-control" name="dbname" placeholder=""></div><br/>
-            <div class="input-group"><span class="input-group-addon">数据表前缀</span><input type="text" class="form-control" name="dbprefix" value="yq_" placeholder=""></div><br/><hr>
-            <h3>站点创始人信息</h3><br/>
-            <div class="input-group"><span class="input-group-addon">创始人用户名</span><input type="text" required class="form-control" name="user" placeholder=""></div><br/>
-            <div class="input-group"><span class="input-group-addon">创始人邮箱</span><input type="email" required class="form-control" name="email" placeholder=""></div><br/>
-            <div class="input-group"><span class="input-group-addon">创始人密码</span><input type="password" required class="form-control" name="pass" placeholder=""></div><br/>
+            <div class="input-group"><span class="input-group-addon">数据库地址</span><input type="text" class="form-control" name="dbhost" value="localhost" placeholder=""></div><br>
+            <div class="input-group"><span class="input-group-addon">数据库用户名</span><input type="text" class="form-control" name="dbuser" value="root" placeholder=""></div><br>
+            <div class="input-group"><span class="input-group-addon">数据库密码</span><input type="text" class="form-control" name="dbpass" placeholder=""></div><br>
+            <div class="input-group"><span class="input-group-addon">数据库名称</span><input type="text" class="form-control" name="dbname" placeholder=""></div><br>
+            <div class="input-group"><span class="input-group-addon">数据表前缀</span><input type="text" class="form-control" name="dbprefix" value="yq_" placeholder=""></div><br><br>
+            <div class="input-group"><span class="input-group-addon">站点地址</span><input type="text" class="form-control" name="siteurl" value="<?php echo isset ($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on' ? 'https://' : 'http://' . $_SERVER['SERVER_NAME'] . dirname (dirname ($_SERVER['SCRIPT_NAME'])); ?>" placeholder=""></div><br>
+            <h3>站点创始人信息</h3><br>
+            <div class="input-group"><span class="input-group-addon">创始人用户名</span><input type="text" required class="form-control" name="user" placeholder=""></div><br>
+            <div class="input-group"><span class="input-group-addon">创始人邮箱</span><input type="email" required class="form-control" name="email" placeholder=""></div><br>
+            <div class="input-group"><span class="input-group-addon">创始人密码</span><input type="password" required class="form-control" name="pass" placeholder=""></div><br>
 
             <br><br>
             <button type="submit" class="btn btn-success" style="float: right;">下一步</button>
