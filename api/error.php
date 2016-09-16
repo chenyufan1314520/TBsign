@@ -5,7 +5,7 @@
 	set_exception_handler ('error_exception');
 	
 	// 函数
-	function error_error ($errno , $errstr , string $errfile , int $errline) // 错误
+	function error_error ($errno , $errstr , $errfile , $errline) // 错误
 	{
 		?>
 			<html>
