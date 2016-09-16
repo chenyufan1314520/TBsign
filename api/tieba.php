@@ -19,7 +19,7 @@
 
 	function tieba_login ($user, $password, $vcode = '', $vcode_md5 = '') // 登录
 	{
-		$url = PANEL_URL . '/function.php?mod=login';
+		$url = API_URL . '/index.php?mod=login';
 		$data = array (
 			'sid' => auth_getsid (),
 			'skey' => auth_getskey (),
