@@ -1,7 +1,7 @@
 <?php
     // 检查是否已安装，防止恶意访问
     if (is_file ('../config.php') == true) {
-        die ('云签已经安装完成，如需重新安装请删除config.php文件。');
+        die ('云签已经安装完成，如需重新安装请删除 config.php 文件。');
     }
     
     // 定义

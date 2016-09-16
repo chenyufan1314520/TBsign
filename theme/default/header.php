@@ -26,7 +26,7 @@
 <div class="wrapper">
   <header class="main-header">
 
-    <a href="index2.html" class="logo">
+    <a href="<?php echo $siteinfo['url']; ?>" class="logo">
         <span class="logo-mini"><i class="fa fa-cloud"></i></span>
         <span class="logo-lg"><?php echo $siteinfo['name']; ?></span>
     </a>
