@@ -1,0 +1,10 @@
+.index-prprogress {
+    height:100px;
+}
+
+.bid {
+    padding-left: 15px;
+    padding-right: 15px;
+    width: 33%;
+    display: inline-block;
+}
