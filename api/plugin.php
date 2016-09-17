@@ -72,7 +72,20 @@
 		}
 	}
 	
-	function plugin_config_exists ($pcn) // 插件某方法是否存在
+	function plugin_config ($pcn) // 调用插件config
+	{
+		// 钩子
+        hook_trigger ('plugin_config_1');
+        
+		// 获取插件信息
+		$pinfo = plugin_getinfo ($pcn);
+		$classname = $pinfo[0]['class'];
+
+		// 调用
+		$classname::config ($pcn);
+	}
+	
+	function plugin_config_exists ($pcn) // 插件config是否存在
 	{
 		// 钩子
         hook_trigger ('plugin_config_exists_1');
