@@ -66,9 +66,9 @@ $("#login").click(function(){
             if (result.code == 0) {
                 $.ajax({ 
                     type: "post",
-                    url : "<?php echo PANEL_URL ?>/function.php?mod=claim", 
+                    url : "./ajax.php?mod=admin-cloud", 
                     dataType: "json",
-                    data: "uss="+result.uss+"&sid=<?php echo $sid ?>&skey=<?php echo $skey ?>", 
+                    data: "do=claim&uss="+result.uss, 
                     success: function(claim){
                         if (claim.code == 0) {
                             notie('success', '绑定成功', true);
