@@ -48,7 +48,7 @@
 
 			// 返回
 			if ($reguid > 0) {
-				exit (json_encode (array ('code' => 0, 'uid' => $uid)));
+				exit (json_encode (array ('code' => 0, 'uid' => $reguid)));
 			} else if ($reguid == -1){
 				exit (json_encode (array ('code' => -1, 'msg' => '邮箱已注册')));
 			} else if ($reguid == -2){
