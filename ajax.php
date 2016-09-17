@@ -270,6 +270,33 @@
 
             // 跳出
             break;
+        case 'admin-cloud': // 云平台
+			// 钩子
+			hook_trigger ('ajax_admin-cloud_1');
+
+            // 检查
+			if (!isset ($userinfo)) {
+				exit (json_encode (array ('code' => -9999, 'msg' => '参数为空')));
+			}
+			if ($userinfo['gid'] != 1) {
+				header ('Location: ./index.php?mod=login');
+				exit ();
+			}
+
+            // 判断操作类型并执行
+			$do = $_POST['do'];
+			if ($do == 'claim') {
+				// 检查
+				if (empty ($_POST['uss'])) {
+					exit (json_encode (array ('code' => -9999, 'msg' => '参数为空')));
+				}
+				
+				// 请求服务器
+				auth_claim ($_POST['uss']);
+			}
+
+            // 跳出
+            break;
 		case 'api_verify': // API验证
 			// 显示
 			exit (auth_getsid ());

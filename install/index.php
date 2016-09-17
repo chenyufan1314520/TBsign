@@ -73,6 +73,7 @@
                 option_add ('system_notice', 'NicoNicoNi~'); // 插入云签公告
                 option_add ('api_sid', ''); // 插入云签sid
                 option_add ('api_skey', ''); // 插入云签skey
+                option_add ('api_uss', ''); // 插入云签服务器uss
 
                 cron_add ('签到任务', 'sign.php'); // 插入签到CRON任务
 
