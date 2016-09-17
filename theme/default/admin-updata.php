@@ -114,8 +114,9 @@
     bar.text.style.fontFamily = '"Raleway", Helvetica, sans-serif';
     bar.text.style.fontSize = '2rem';
     bar.animate(0);
-
+    $('#progress').hide();
     $("#updata").click(function() {
+        $('#progress').fadeIn();
         $.ajax({
             type: "post",
             url: "./ajax.php?mod=admin-updata",

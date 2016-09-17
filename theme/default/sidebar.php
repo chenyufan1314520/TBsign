@@ -68,11 +68,11 @@
                             <i class="fa fa-clock-o"></i> <span> 计划任务</span>
                         </a>
                     </li>
-                    <!--<li class="treeview <?php if ($_GET['mod'] == 'admin-updata') echo 'active'; ?>">
+                    <li class="treeview <?php if ($_GET['mod'] == 'admin-updata') echo 'active'; ?>">
                         <a href="./index.php?mod=admin-updata">
                             <i class="fa fa-upload"></i> <span> 检查更新</span>
                         </a>
-                    </li>-->
+                    </li>
                     <?php
                     	// 钩子
 						hook_trigger ('sidebar_admin_1');
