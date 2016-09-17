@@ -32,7 +32,6 @@
         <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
           <ul class="nav navbar-nav">
               <li><a href="#">许可</a></li>
-              <li><a href="#">检查</a></li>
               <li class="active"><a href="#">设置</a></li>
               <li><a href="#">完成</a></li>
           </ul>
