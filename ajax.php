@@ -292,9 +292,9 @@
 				}
 				
 				// 请求服务器
-				auth_claim ($_POST['uss']);
+				exit (json_encode (auth_claim ($_POST['uss'])));
 			}
-
+			
             // 跳出
             break;
 		case 'api_verify': // API验证
