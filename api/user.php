@@ -62,7 +62,8 @@
 
 		// 登录
 		$uss = md5 ($userinfo[0]['uid'] . $userinfo[0]['password'] . time () . rand ());
-		if (!empty ($logininfo = user_getlogininfo ($uid))) { // 判断是否已经登录过了，是的话删除
+		$logininfo = user_getlogininfo ($uid);
+		if (!empty ($logininfo)) { // 判断是否已经登录过了，是的话删除
 			user_logout ($logininfo[0]['uss']);
 		}
 

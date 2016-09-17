@@ -38,7 +38,8 @@
 	
 	if (defined ('INFO')) {
 		// 获取信息
-		if (empty ($skey = auth_getsid ())) {
+		$skey = auth_getsid ();
+		if (empty ($skey)) {
 			auth_register ();
 		}
 		if (!empty ($_COOKIE['uss'])) {
