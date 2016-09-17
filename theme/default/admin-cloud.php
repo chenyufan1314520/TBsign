@@ -14,27 +14,35 @@
                     <h4>授权信息</h4>
                     <p>Sid : <?php echo $sid ?></p>
                     <p>Skey : <?php echo $skey ?></p>
+                    <p>Uid : <span id="uid"></span></p>
+                    <p>Username : <span id="username"></span></p>
                 </div>
                 <div class="box">
                     <div class="box-header">
                         <h3 class="box-title">登录云平台账号</h3>
                     </div>
-                    <div class="box-body table-responsive">
-                        <div class="input-group">
-                            <span class="input-group-addon">用户名/邮箱</span>
-                            <input type="text" id="user" class="form-control" placeholder="用户名/邮箱">
+                    <?php if(empty (auth_getuss ())) { ?>?
+                        <div class="box-body table-responsive">
+                            <div class="input-group">
+                                <span class="input-group-addon">用户名/邮箱</span>
+                                <input type="text" id="user" class="form-control" placeholder="用户名/邮箱">
+                            </div>
+                            <br>
+                            <div class="input-group">
+                                <span class="input-group-addon">密码</span>
+                                <input type="password" id="password" class="form-control" placeholder="密码">
+                            </div>
+                            <br>
+                            <input type="submit" id="login" class="btn btn-primary" value="点击绑定">
                         </div>
-                        <br>
-                        <div class="input-group">
-                            <span class="input-group-addon">密码</span>
-                            <input type="password" id="password" class="form-control" placeholder="密码">
+                        <div class="callout callout-warning">
+                            <p>此为https://panel.tbsign.in的账号</p>
                         </div>
-                        <br>
-                        <input type="submit" id="login" class="btn btn-primary" value="点击绑定">
-                    </div>
-                    <div class="callout callout-warning">
-                        <p>此为https://panel.tbsign.in的账号</p>
-                    </div>
+                        <?php } else {?>
+                            <div class="box-body table-responsive">
+                                <p>已绑定</p>
+                            </div>
+                        <?php }?>
                 </div>
             </div>
         </div>
@@ -82,6 +90,44 @@ $("#login").click(function(){
             }
         } 
     });
+});
+$(document).ready(function(){
+    uss = '<?php echo auth_getuss() ?>';
+    
+    $.ajax({ 
+        type: "post", 
+        url : "<?php echo PANEL_URL ?>/function.php?mod=user_loginsearch", 
+        dataType: "json",
+        data: "uss="+uss, 
+        success: function(result){
+            if (result.code == 0) {
+                if (result.uid == -1) {
+                    // guo 
+                    return;
+                }
+                
+                $.ajax({ 
+                    type: "post", 
+                    url : "<?php echo PANEL_URL ?>/function.php?mod=user_getinfo", 
+                    dataType: "json",
+                    data: "uss="+uss, 
+                    success: function(result){
+                        if (result.code == 0) {
+                            console.log(result.userinfo.uid);
+                            $('#uid').html(result.userinfo.uid);
+                            $('#username').html(result.userinfo.name);
+                        } else {
+                            notie('error', result.msg, true);
+                        }
+                    } 
+                });
+            } else {
+                notie('error', result.msg, true);
+            }
+        } 
+    });
+    
+    
 });
 </script>
 
