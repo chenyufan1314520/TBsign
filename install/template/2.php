@@ -44,7 +44,7 @@
     <div class="container">
       <section class="content">
         <h2>开始安装: 功能检查</h2><br>
-        <form action="./index.php?step=3" method="post">
+        <form action="./index.php?step=2" method="post">
           <div class="input-group"><span class="input-group-addon">数据库地址</span><input type="text" class="form-control" name="dbhost" value="localhost" placeholder=""></div><br>
           <div class="input-group"><span class="input-group-addon">数据库用户名</span><input type="text" class="form-control" name="dbuser" value="root" placeholder=""></div><br>
           <div class="input-group"><span class="input-group-addon">数据库密码</span><input type="text" class="form-control" name="dbpass" placeholder=""></div><br>
@@ -58,6 +58,7 @@
 
           <br><br>
           <button type="submit" class="btn btn-success" style="float: right;">下一步</button>
+          </form>
       </section>
     </div>
   </div>
