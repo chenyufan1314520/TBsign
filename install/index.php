@@ -32,23 +32,10 @@
             
             // 跳出
             break;
-        case '2': // 环境检测页
+        case '2': // 数据库填写页
             // 判断操作类型
             if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                 require_once ('template/2.php');
-            } else {
-                // 乱七八糟的准备工作
-                
-                // 跳转
-                header ('Location: ./index.php?step=3');
-            }
-            
-            // 跳出
-            break;
-        case '3': // 数据库填写页
-            // 判断操作类型
-            if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-                require_once ('template/3.php');
             } else {
                 // 初始化变量
                 $siteurl = $_POST['siteurl'];
