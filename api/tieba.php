@@ -2,6 +2,9 @@
 <?php
 	function tieba_getsign ($data) // 签名数据
 	{
+	    // 钩子
+        hook_trigger ('tieba_getsign_1');
+        
 		// 初始化变量
 		$ret = '';
 
@@ -19,6 +22,10 @@
 
 	function tieba_login ($user, $password, $vcode = '', $vcode_md5 = '') // 登录
 	{
+	    // 钩子
+        hook_trigger ('tieba_login_1');
+        
+        // 登录
 		$url = API_URL . '/index.php?mod=login';
 		$data = array (
 			'sid' => auth_getsid (),
@@ -41,6 +48,9 @@
 
 	function tieba_getlike ($bduss) // 获取喜欢的吧
 	{
+	    // 钩子
+        hook_trigger ('tieba_getlike_1');
+        
 		// 构造基本数据
 		$url = 'http://c.tieba.baidu.com/c/f/forum/like';
 		$data = array (
@@ -56,6 +66,9 @@
 
 	function tieba_gettbs ($bduss) // 获取tbs
 	{
+	    // 钩子
+        hook_trigger ('tieba_gettbs_1');
+        
 		// 构造基本数据
 		$url = 'http://tieba.baidu.com/dc/common/tbs';
 
@@ -68,6 +81,9 @@
 
 	function tieba_sign ($bduss, $kw) // 签到API
 	{
+	    // 钩子
+        hook_trigger ('tieba_sign_1');
+        
 		// 构造基本数据
 		$url = 'http://c.tieba.baidu.com/c/c/forum/sign';
 		$data = array (
@@ -82,6 +98,9 @@
 
 	function tieba_getuserinfo ($bduss) // 获取某用户信息（不建议使用，建议使用$baiduidinfo）
 	{
+	    // 钩子
+        hook_trigger ('tieba_getuserinfo_1');
+        
 		// 构造基本数据
 		$url = 'http://tieba.baidu.com/f/user/json_userinfo';
 
@@ -91,6 +110,9 @@
 
 	function tieba_getavatar ($bduss) // 获取某用户头像（不建议使用，建议使用$baiduidinfo）
 	{
+	    // 钩子
+        hook_trigger ('tieba_getavatar_1');
+        
 		// 获取信息
 		$baiduidinfo = tieba_getuserinfo ($bduss);
 		
@@ -103,6 +125,9 @@
 
 	function tieba_getname ($bduss) // 获取某用户昵称（不建议使用，建议使用$baiduidinfo）
 	{
+	    // 钩子
+        hook_trigger ('tieba_getname_1');
+        
 		// 获取信息
 		$baiduidinfo = tieba_getuserinfo ($bduss);
 		
@@ -112,6 +137,9 @@
 
 	function tieba_getfid ($kw) // 获取某贴吧的fid
 	{
+	    // 钩子
+        hook_trigger ('tieba_getfid_1');
+        
 		// 构造基本数据
 		$url = 'http://tieba.baidu.com/f/commit/share/fnameShareApi?ie=utf-8&fname=' . $kw;
 		
