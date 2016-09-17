@@ -32,8 +32,8 @@
         <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
           <ul class="nav navbar-nav">
               <li><a href="#">许可</a></li>
-              <li class="active"><a href="#">检查</a></li>
-              <li><a href="#">设置</a></li>
+              <li><a href="#">检查</a></li>
+              <li class="active"><a href="#">设置</a></li>
               <li><a href="#">完成</a></li>
           </ul>
         </div>
@@ -43,34 +43,21 @@
   <div class="content-wrapper">
     <div class="container">
       <section class="content">
-        <h2>准备安装: 功能检查</h2><br/>
+        <h2>开始安装: 功能检查</h2><br>
+        <form action="./index.php?step=3" method="post">
+          <div class="input-group"><span class="input-group-addon">数据库地址</span><input type="text" class="form-control" name="dbhost" value="localhost" placeholder=""></div><br>
+          <div class="input-group"><span class="input-group-addon">数据库用户名</span><input type="text" class="form-control" name="dbuser" value="root" placeholder=""></div><br>
+          <div class="input-group"><span class="input-group-addon">数据库密码</span><input type="text" class="form-control" name="dbpass" placeholder=""></div><br>
+          <div class="input-group"><span class="input-group-addon">数据库名称</span><input type="text" class="form-control" name="dbname" placeholder=""></div><br>
+          <div class="input-group"><span class="input-group-addon">数据表前缀</span><input type="text" class="form-control" name="dbprefix" value="yq_" placeholder=""></div><br>
+          <div class="input-group"><span class="input-group-addon">站点地址</span><input type="text" class="form-control" name="siteurl" value="<?php echo (isset ($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on' ? 'https://' : 'http://') . $_SERVER['SERVER_NAME'] . dirname (dirname ($_SERVER['SCRIPT_NAME'])); ?>" placeholder=""></div><br>
+          <h3>站点创始人信息</h3><br>
+          <div class="input-group"><span class="input-group-addon">创始人用户名</span><input type="text" required class="form-control" name="user" placeholder=""></div><br>
+          <div class="input-group"><span class="input-group-addon">创始人邮箱</span><input type="email" required class="form-control" name="email" placeholder=""></div><br>
+          <div class="input-group"><span class="input-group-addon">创始人密码</span><input type="password" required class="form-control" name="pass" placeholder=""></div><br>
 
-          <div class="box">
-            <div class="box-body">
-              <table class="table table-bordered">
-                <tbody>
-                <tr>
-                  <th>名称</th>
-                  <th>当前</th>
-                </tr>
-                <tr>
-                  <td>Update software</td>
-                  <td>
-                    <span class="badge bg-green">支持</span>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Clean database</td>
-                  <td><span class="badge bg-red">不支持</span></td>
-                </tr>
-              </tbody>
-              </table>
-            </div>
-          </div>
-        <br><br>
-        <form action="./index.php?step=2" method="post">
-		    <button type="submit" class="btn btn-success" style="float: right;">下一步</button>
-	    </form>
+          <br><br>
+          <button type="submit" class="btn btn-success" style="float: right;">下一步</button>
       </section>
     </div>
   </div>
@@ -87,6 +74,10 @@
 <script src="./template/assets/plugins/slimScroll/jquery.slimscroll.min.js"></script>
 <script src="./template/assets/plugins/fastclick/fastclick.js"></script>
 <script src="./template/assets/dist/js/app.min.js"></script>
+<script src="./template/assets/plugins/notice/notice.js"></script>
 <script src="./template/assets/dist/js/demo.js"></script>
+<script>
+    notie('warning', '请检查站点地址，如不正确，请更正', true);
+</script>
 </body>
 </html>

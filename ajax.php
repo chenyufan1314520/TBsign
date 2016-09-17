@@ -209,6 +209,15 @@
 
 				// 禁用
 				plugin_deactivate ($_POST['pcn']);
+			} else if ($do == 'config') {
+				// 检查
+				if (empty ($_POST['pcn'])) {
+					exit (json_encode (array ('code' => -9999, 'msg' => '参数为空')));
+				}
+
+				// 配置
+				plugin_config ($_POST['pcn']);
+				exit ();
 			}
 
 			// 返回

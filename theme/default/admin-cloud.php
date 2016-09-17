@@ -33,7 +33,7 @@
                         <input type="submit" id="login" class="btn btn-primary" value="点击绑定">
                     </div>
                     <div class="callout callout-warning">
-                        <p>PS : 此为https://panel.tbsign.in的账号</p>
+                        <p>此为https://panel.tbsign.in的账号</p>
                     </div>
                 </div>
             </div>

@@ -3,7 +3,8 @@
 	define ('SYSTEM_ROOT', __DIR__);
 	define ('API_URL', 'https://api.tbsign.in');
 	define ('PANEL_URL', 'https://panel.tbsign.in');
-
+	date_default_timezone_set ('Asia/Shanghai');
+	
 	// 引入
 	require_once 'api/error.php';
 	require_once 'config.php';
@@ -37,7 +38,8 @@
 	
 	if (defined ('INFO')) {
 		// 获取信息
-		if (empty ($skey = auth_getsid ())) {
+		$skey = auth_getsid ();
+		if (empty ($skey)) {
 			auth_register ();
 		}
 		if (!empty ($_COOKIE['uss'])) {
