@@ -40,10 +40,9 @@
 		// 分析
 		if ($ret['code'] == 0) {
 			option_iou ('api_uss', $uss);
+		} else {
+			die ('请求skey失败，原因：' . $ret['msg']);
 		}
-		
-		// 返回
-		return $ret;
 	} 
 	
 	function auth_getsid ()
