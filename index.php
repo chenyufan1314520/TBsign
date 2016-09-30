@@ -33,6 +33,12 @@
         	// 钩子
 			hook_trigger ('index_login_1');
 			
+			// 判断是否已登录
+            if (isset ($userinfo)) {
+                header ('Location: ./index.php');
+                exit ();
+            }
+			
             // 加载页面
             require_once ($siteinfo['theme']['path'] . '/login.php');
             
