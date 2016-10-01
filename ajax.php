@@ -165,19 +165,14 @@
 				exit ();
 			}
 
-			// 判断操作类型
-			if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-				require_once ($siteinfo['theme']['path'] . '/admin-set.php');
-			} else {
-				// 保存
-				system_seturl ($_POST['siteurl']);
-				system_setname ($_POST['sitename']);
-				system_setbeian ($_POST['sitebeian']);
-				system_setnotice ($_POST['sitenotice']);
+			// 保存
+			system_seturl ($_POST['siteurl']);
+			system_setname ($_POST['sitename']);
+			system_setbeian ($_POST['sitebeian']);
+			system_setnotice ($_POST['sitenotice']);
 
-				// 返回
-				exit (json_encode (array ('code' => 0)));
-			}
+			// 返回
+			exit (json_encode (array ('code' => 0)));
 	    case 'admin-plugins': // 插件管理页
 	    	// 钩子
 			hook_trigger ('ajax_admin-plugins_1');
