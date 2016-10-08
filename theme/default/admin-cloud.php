@@ -21,7 +21,8 @@
                     <div class="box-header">
                         <h3 class="box-title">登录云平台账号</h3>
                     </div>
-                    <?php if(empty (auth_getuss ())) { ?>?
+    
+					<div id="loginbox" style="display: none;">
                         <div class="box-body table-responsive">
                             <div class="input-group">
                                 <span class="input-group-addon">用户名/邮箱</span>
@@ -38,11 +39,11 @@
                         <div class="callout callout-warning">
                             <p>此为https://panel.tbsign.in的账号</p>
                         </div>
-                        <?php } else {?>
-                            <div class="box-body table-responsive">
-                                <p>已绑定</p>
-                            </div>
-                        <?php }?>
+					</div>
+
+                    <div class="box-body table-responsive" id="logined" style="display: none;">
+                        <p>已绑定</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -96,24 +97,26 @@ $(document).ready(function(){
     
     $.ajax({ 
         type: "post", 
-        url : "<?php echo PANEL_URL ?>/function.php?mod=user_loginsearch", 
+        url : "<?php echo PANEL_URL ?>/function.php?mod=user_loginsearch",
+        async: false,
         dataType: "json",
-        data: "uss="+uss, 
+        data: "uss="+uss,
         success: function(result){
             if (result.code == 0) {
                 if (result.uid == -1) {
-                    // guo 
+                    $("#loginbox").show();
                     return;
                 }
                 
                 $.ajax({ 
                     type: "post", 
-                    url : "<?php echo PANEL_URL ?>/function.php?mod=user_getinfo", 
+                    url : "<?php echo PANEL_URL ?>/function.php?mod=user_getinfo",
+                    async: false,
                     dataType: "json",
                     data: "uss="+uss, 
                     success: function(result){
                         if (result.code == 0) {
-                            console.log(result.userinfo.uid);
+                        	$("#logined").show();
                             $('#uid').html(result.userinfo.uid);
                             $('#username').html(result.userinfo.name);
                         } else {

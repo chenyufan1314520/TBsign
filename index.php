@@ -159,7 +159,6 @@
             
             // 跳出
             break;
-            
         case 'admin-cron': // 计划任务页
         	// 钩子
 			hook_trigger ('index_admin-cron_1');
@@ -179,7 +178,6 @@
             
             // 跳出
             break;
-            
         case 'admin-updata': // 更新页
         	// 钩子
 			hook_trigger ('index_admin-updata_1');
@@ -195,7 +193,6 @@
             
             // 跳出
             break;
-            
         case 'showtb': // 贴吧列表页
         	// 钩子
 			hook_trigger ('index_showtb_1');
@@ -211,7 +208,6 @@
             
             // 跳出
             break;
-            
         case 'admin-cloud': // 贴吧列表页
         	// 钩子
 			hook_trigger ('index_admin-cloud_1');
