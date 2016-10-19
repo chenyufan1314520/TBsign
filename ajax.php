@@ -63,12 +63,11 @@
 				exit (json_encode (array ('code' => -9999, 'msg' => '参数为空')));
 			}
 			if ($userinfo['gid'] != 1) {
-				header ('Location: ./index.php?mod=login');
 				exit ();
 			}
 
 			// 获取操作
-			$do = @$_POST['do'];
+			$do = $_POST['do'];
 			if ($do == 'delete') {
 				foreach (@$_POST['uid'] as $uid_d) {
 					user_delete ($uid_d);
@@ -161,7 +160,6 @@
 				exit (json_encode (array ('code' => -9999, 'msg' => '参数为空')));
 			}
 			if ($userinfo['gid'] != 1) {
-				header ('Location: ./index.php?mod=login');
 				exit ();
 			}
 
@@ -170,6 +168,7 @@
 			system_setname ($_POST['sitename']);
 			system_setbeian ($_POST['sitebeian']);
 			system_setnotice ($_POST['sitenotice']);
+			auth_register ();
 
 			// 返回
 			exit (json_encode (array ('code' => 0)));
@@ -182,7 +181,6 @@
 				exit (json_encode (array ('code' => -9999, 'msg' => '参数为空')));
 			}
 			if ($userinfo['gid'] != 1) {
-				header ('Location: ./index.php?mod=login');
 				exit ();
 			}
 
@@ -217,7 +215,7 @@
 
 			// 返回
 			exit (json_encode (array ('code' => 0)));
-	    case 'admin-theme': // 插件管理页
+	    case 'admin-theme': // 主题管理页
 	    	// 钩子
 			hook_trigger ('ajax_admin-theme_1');
 
@@ -226,7 +224,6 @@
 				exit (json_encode (array ('code' => -9999, 'msg' => '参数为空')));
 			}
 			if ($userinfo['gid'] != 1) {
-				header ('Location: ./index.php?mod=login');
 				exit ();
 			}
 
@@ -241,7 +238,6 @@
 				exit (json_encode (array ('code' => -9999, 'msg' => '参数为空')));
 			}
 			if ($userinfo['gid'] != 1) {
-				header ('Location: ./index.php?mod=login');
 				exit ();
 			}
 
@@ -274,7 +270,6 @@
 				exit (json_encode (array ('code' => -9999, 'msg' => '参数为空')));
 			}
 			if ($userinfo['gid'] != 1) {
-				header ('Location: ./index.php?mod=login');
 				exit ();
 			}
 
@@ -326,6 +321,33 @@
 
 			// 返回
 			exit (json_encode (array ('code' => 0)));
+		case 'plugin-install':
+			// 钩子
+			hook_trigger ('ajax_plugin-install');
+
+			// 检查
+			if (!isset ($_POST['pluginmd5'])) {
+				exit (json_encode (array ('code' => -9999, 'msg' => '参数为空')));
+			}
+			
+			// 验证签名
+			$pluginmd5 = auth_verifysign ($_POST['pluginmd5']);
+			if ($pluginmd5 == '') exit ();
+			
+			// 下载
+			$pluginurl = PANEL_URL . '/updata/plugins/' . $pluginmd5 . '/plugin.zip'; // 初始化变量
+			$pluginzip = SYSTEM_ROOT . '/plugins/' . $pluginmd5 . '.zip';
+			
+			file_put_contents ($pluginzip, file_get_contents ($pluginurl)); // 下载
+			
+			$z = new ZipArchive (); // 解压
+			$z->open ($pluginzip);
+			$z->extractTo (SYSTEM_ROOT . '/plugins');
+			
+			unlink ($pluginzip); // 删除zip
+			
+			// 跳出
+            break;
 	}
 
 	function mkdir_recu ($path) {
