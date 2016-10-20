@@ -26,4 +26,13 @@
         // 返回
 		return system_geturl () . '/theme/' . theme_getname_f ();
 	}
+	
+	function theme_select ($tcn) // 更换主题
+	{
+		// 钩子
+        hook_trigger ('theme_select_1');
+        
+        // 更换
+		option_update ('system_theme', $tcn);
+	}
 ?>

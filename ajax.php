@@ -220,13 +220,25 @@
 			hook_trigger ('ajax_admin-theme_1');
 
 			// 检查
-			if (!isset ($userinfo)) {
+			if (empty ($_POST['do']) || !isset ($userinfo)) {
 				exit (json_encode (array ('code' => -9999, 'msg' => '参数为空')));
 			}
 			if ($userinfo['gid'] != 1) {
 				exit ();
 			}
-
+			
+			// 切换
+			$do = $_POST['do'];
+			if ($do == 'select') {
+				// 检查
+				if (empty ($_POST['pcn'])) {
+					exit (json_encode (array ('code' => -9999, 'msg' => '参数为空')));
+				}
+				
+				// 更换
+				theme_select ($_POST['pcn']);
+			}
+			
 			// 跳出
 			break;
         case 'admin-updata': // 更新页
@@ -234,7 +246,7 @@
 			hook_trigger ('ajax_admin-updata_1');
 
             // 检查
-			if (!isset ($userinfo)) {
+			if (empty ($_POST['do']) || !isset ($userinfo)) {
 				exit (json_encode (array ('code' => -9999, 'msg' => '参数为空')));
 			}
 			if ($userinfo['gid'] != 1) {
@@ -266,7 +278,7 @@
 			hook_trigger ('ajax_admin-cloud_1');
 
             // 检查
-			if (!isset ($userinfo)) {
+			if (empty ($_POST['do']) || !isset ($userinfo)) {
 				exit (json_encode (array ('code' => -9999, 'msg' => '参数为空')));
 			}
 			if ($userinfo['gid'] != 1) {

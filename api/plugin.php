@@ -182,7 +182,16 @@
         // 返回
 		return SYSTEM_ROOT . '/plugins/' . $pcn;
 	}
-
+	
+	function plugin_geturl ($pcn) // 获取某插件网络路径
+	{
+		// 钩子
+        hook_trigger ('plugin_geturl_1');
+        
+        // 返回
+		return system_geturl () . '/plugins/' . $pcn;
+	}
+	
 	function plugin_getinfo_f ($pcn) // 获取某插件信息（文件）
 	{
 		// 钩子
