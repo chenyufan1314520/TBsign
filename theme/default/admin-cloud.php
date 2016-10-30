@@ -14,8 +14,6 @@
                     <h4>授权信息</h4>
                     <p>Sid : <?php echo $sid ?></p>
                     <p>Skey : <?php echo $skey ?></p>
-                    <p>Uid : <span id="uid"></span></p>
-                    <p>Username : <span id="username"></span></p>
                 </div>
                 <div class="box">
                     <div class="box-header">
@@ -51,88 +49,5 @@
 </div>
   
 <!-- 底部引入 -->
-<script src="<?php echo $siteinfo['theme']['url']; ?>/assets/plugins/jQuery/jQuery-2.2.0.min.js"></script>
-<script src="<?php echo $siteinfo['theme']['url']; ?>/assets/plugins/notice/notice.js"></script>
-<script src="<?php echo $siteinfo['theme']['url']; ?>/assets/plugins/user/user.js"></script>
-
-<script>
-$("body").keydown(function() {
-    if (event.keyCode == "13") {
-        $("#login").click();
-    }
-});    
-$("#login").click(function(){ 
-    var user = $("#user").val();
-    var uid = user_search(user);
-    var password = $("#password").val();
-
-    $.ajax({ 
-        type: "post", 
-        url : "<?php echo PANEL_URL ?>/ajax.php?mod=login", 
-        dataType: "json",
-        data: "uid="+uid+"&password="+password, 
-        success: function(result){
-            if (result.code == 0) {
-                $.ajax({ 
-                    type: "post",
-                    url : "./ajax.php?mod=admin-cloud", 
-                    dataType: "json",
-                    data: "do=claim&uss="+result.uss, 
-                    success: function(claim){
-                        if (claim.code == 0) {
-                            notie('success', '绑定成功', true);
-                        } else {
-                            notie('error', claim.msg, true);
-                        }
-                    } 
-                });
-            } else {
-                notie('error', result.msg, true);
-            }
-        } 
-    });
-});
-$(document).ready(function(){
-    uss = '<?php echo auth_getuss() ?>';
-    
-    $.ajax({ 
-        type: "post", 
-        url : "<?php echo PANEL_URL ?>/function.php?mod=user_loginsearch",
-        async: false,
-        dataType: "json",
-        data: "uss="+uss,
-        success: function(result){
-            if (result.code == 0) {
-                if (result.uid == -1) {
-                    $("#loginbox").show();
-                    return;
-                }
-                
-                $.ajax({ 
-                    type: "post", 
-                    url : "<?php echo PANEL_URL ?>/function.php?mod=user_getinfo",
-                    async: false,
-                    dataType: "json",
-                    data: "uss="+uss, 
-                    success: function(result){
-                        if (result.code == 0) {
-                        	$("#logined").show();
-                            $('#uid').html(result.userinfo.uid);
-                            $('#username').html(result.userinfo.name);
-                        } else {
-                            notie('error', result.msg, true);
-                        }
-                    } 
-                });
-            } else {
-                notie('error', result.msg, true);
-            }
-        } 
-    });
-    
-    
-});
-</script>
-
 <?php require_once 'footer.php'; ?>
 

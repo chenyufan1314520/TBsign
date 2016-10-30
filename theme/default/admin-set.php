@@ -58,34 +58,5 @@
 </div>
   
 <!-- 底部引入 -->
-<script src="<?php echo $siteinfo['theme']['url']; ?>/assets/plugins/jQuery/jQuery-2.2.0.min.js"></script>
-<script src="<?php echo $siteinfo['theme']['url']; ?>/assets/plugins/notice/notice.js"></script>
-
-<script>
-$("#set").click(function(){ 
-    var siteurl = $("#siteurl").val();  
-    var sitename = $("#sitename").val(); 
-    var beian = $("#beian").val(); 
-    var sitenotice = $("#sitenotice").val(); 
-    
-    // Ajax 提交开始
-    $.ajax({ 
-        type: "post", 
-        url : "./ajax.php?mod=admin-set", 
-        dataType: "json",
-        data: "siteurl="+siteurl+"&sitename="+sitename+"&sitebeian="+beian+"&sitenotice="+sitenotice, 
-        success: function(result){
-            if (result.code == 0) {
-                notie('success', '提交成功', true)
-                setTimeout("window.location.reload()",500)
-            } else if (result.code == -1) {
-                notie('error', result.msg, true)
-            }
-        } 
-    });
-});
-
-</script>
-
 <?php require_once 'footer.php'; ?>
 

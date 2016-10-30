@@ -79,47 +79,5 @@
 </div>
 
 <!-- 底部引入 -->
-<script src="<?php echo $siteinfo['theme']['url']; ?>/assets/plugins/jQuery/jQuery-2.2.0.min.js"></script>
-<script src="<?php echo $siteinfo['theme']['url']; ?>/assets/plugins/notice/notice.js"></script>
-<script>
-function reftieba(bid){
-    $("#reftieba").attr("disabled", "disabled");
-
-    $.ajax({ 
-        type: "post", 
-        url : "./ajax.php?mod=showtb", 
-        dataType: "json",
-        data: "do=ref&bid="+bid, 
-        success: function(result){
-            if (result.code == 0) {
-                notie('success', '刷新成功', true);
-				setTimeout("window.location.reload()",500)
-            } else {
-                notie('error', result.msg , true);
-            }
-			$("#reftieba").attr("disabled",false);
-        } 
-    });
-}
-$('#refall').click(function(){
-	$("#refall").attr("disabled", "disabled");
-	$.ajax({
-        type: "post",
-        url : "./ajax.php?mod=showtb",
-        dataType: "json",
-        data: "do=refall",
-        success: function(result){
-            if (result.code == 0) {
-                notie('success', '刷新成功', true);
-				setTimeout("window.location.reload()",500)
-            } else {
-                notie('error', result.msg , true);
-            }
-			$("#refall").attr("disabled",false);
-        }
-    });
-});
-</script>
-
 <?php require_once 'footer.php'; ?>
 
