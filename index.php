@@ -10,6 +10,9 @@
 
     // 加载配置
     require_once 'init.php';
+    
+	// 钩子
+	hook_trigger ('index_1');
 	
     // 执行各类操作
     $mod = $_GET['mod']; // 获取类型

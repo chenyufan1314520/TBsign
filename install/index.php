@@ -90,6 +90,7 @@
                 if (is_writable ('../config.php')) {
                     file_put_contents ('../config.php', $configcon);
                 } else {
+                	header ('Content-Type: text/html; charset=utf-8');
                     die ("似乎云签没有写入权限以写入配置文件，请在云签根目录创建 config.php，然后填入以下内容：<br><textarea rows=9 cols=35>$configcon</textarea>");
                 }
                 

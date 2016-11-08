@@ -1,6 +1,5 @@
 <?php if (!defined ('SYSTEM_ROOT')) exit (); ?>
 <?php
-	// 函数
 	function system_fetch ($url, $postdata = null, $cookie = null, $header = array (), $convert = false) // 访问网页（半原创）
 	{
 		// 钩子

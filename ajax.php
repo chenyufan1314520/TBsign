@@ -9,7 +9,10 @@
 
 	// 加载配置
 	require_once 'init.php';
-
+	
+	// 钩子
+	hook_trigger ('ajax_1');
+	
 	// 执行各类操作
 	$mod = $_GET['mod']; // 获取类型
 	switch ($mod) {
@@ -264,7 +267,9 @@
 				}
 
 				// 下载
-				mkdir_recu (dirname ($_POST['file'])); // 创建目录结构
+				if (!is_dir (dirname ($_POST['file']))) {
+					mkdir (dirname ($_POST['file']), 0777, true);
+				}
 				file_put_contents ($_POST['file'], file_get_contents (API_URL . '/updata/' . $_POST['file']));
 
 				// 返回
@@ -360,14 +365,5 @@
 			
 			// 跳出
             break;
-	}
-
-	function mkdir_recu ($path) {
-		$cpath = SYSTEM_ROOT . '/' . $path;
-		if (is_dir ($cpath)) {
-			return;
-		}
-		mkdir_recu (dirname ($path));
-		mkdir ($cpath);
 	}
 ?>
