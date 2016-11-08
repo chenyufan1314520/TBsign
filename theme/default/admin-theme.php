@@ -50,9 +50,5 @@
 </div>
   
 <!-- 底部引入 -->
-<script src="<?php echo $siteinfo['theme']['url']; ?>/assets/plugins/jQuery/jQuery-2.2.0.min.js"></script>
-<script src="<?php echo $siteinfo['theme']['url']; ?>/assets/plugins/notice/notice.js"></script>
-
-
 <?php require_once 'footer.php'; ?>
 

@@ -65,6 +65,14 @@
 <script src="<?php echo $siteinfo['theme']['url']; ?>/assets/dist/js/demo.js"></script>
 <script src="<?php echo $siteinfo['theme']['url']; ?>/assets/plugins/chartjs/Chart.min.js"></script>
 <script src="<?php echo $siteinfo['theme']['url']; ?>/assets/plugins/notice/notice.js"></script>
+<script src="<?php echo $siteinfo['theme']['url']; ?>/assets/plugins/user/base.js"></script>
+<?php
+    if ($userinfo['gid'] == 1) {
+        ?>
+        <script src="<?php echo $siteinfo['theme']['url']; ?>/assets/plugins/user/admin.js"></script>
+        <?php
+    }
+?>
 <script>
 //$(function () {
     //$("#show").hide();
@@ -72,25 +80,6 @@
     //$("#TBavatar").click(function(){ $("#Gravatar").attr("checked", false); $("#show").show(); }); $("#Gravatar").click(function(){ $("#TBavatar").attr("checked", false); $("#show").hide(); });
 //});
 
-$("#updata").click(function(){
-    var email = $("#email").val(); 
-    var password = $("#password").val();
-    var avatar = $('input[name=avatar]:checked').val();
-    
-    $.ajax({ 
-        type: "post", 
-        url : "./ajax.php?mod=profile", 
-        dataType: "json",
-        data: "email="+email+"&password="+password+"&avatar_type="+avatar, 
-        success: function(result){
-            if (result.code == 0) {
-                notie('success', '修改成功', true);
-            } else if (result.code == -1) {
-                notie('error', result.msg, true)
-            }
-        } 
-    });
-});
 </script>
 
 

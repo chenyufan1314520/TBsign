@@ -104,55 +104,6 @@
 </div>
   
 <!-- 底部引入 -->
-<script src="<?php echo $siteinfo['theme']['url']; ?>/assets/plugins/jQuery/jQuery-2.2.0.min.js"></script>
-<script src="<?php echo $siteinfo['theme']['url']; ?>/assets/plugins/notice/notice.js"></script>
-<script>
-function activate(pcn) {
-    $.ajax({ 
-        type: "post", 
-        url : "./ajax.php?mod=admin-plugins", 
-        dataType: "json",
-        data: "do=activate&pcn="+pcn, 
-        success: function(result){
-            if (result.code == 0) {
-                notie('success', '启用成功', true);
-                setTimeout("window.location.reload()",500)
-            } else {
-                notie('error', result.msg , true);
-            }
-        } 
-    });
-}
-
-function deactivate(pcn) {
-    $.ajax({ 
-        type: "post", 
-        url : "./ajax.php?mod=admin-plugins", 
-        dataType: "json",
-        data: "do=deactivate&pcn="+pcn, 
-        success: function(result){
-            if (result.code == 0) {
-                notie('success', '禁用成功', true);
-                setTimeout("window.location.reload()",500)
-            } else {
-                notie('error', result.msg , true);
-            }
-        } 
-    });
-}
-
-function pluginisit(pcn, pluginame) {
-    $('#myModalLabel').html(pluginame);
-    $.ajax({ 
-        type: "post", 
-        url : "./ajax.php?mod=admin-plugins", 
-        data: "do=config&pcn="+pcn, 
-        success: function(result){
-            $('#plugin-sit').html(result);
-        } 
-    });
-}
-</script>
 <div class="modal fade" id="plugin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
