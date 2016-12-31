@@ -61,7 +61,7 @@
 		$ret = json_decode (system_fetch ($url, tieba_getsign ($data), 'BDUSS=' . $bduss), true);
 
 		// 返回
-		return $ret['forum_list'];
+		return @$ret['forum_list'];
 	}
 
 	function tieba_gettbs ($bduss) // 获取tbs
